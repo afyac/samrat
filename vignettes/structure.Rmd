@@ -1,0 +1,29 @@
+---
+title: "Package Structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package Structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This is an overall structure of the `samrat` package, which details how the 
+different analysis elements (parameters, analysis, plotting etc) are functionally
+related. 
+
+The package structure is shown below:
+
+![Samrat Structure](imgs/structure.png)
+
+
+
+```{r setup}
+library(samrat)
+```
