@@ -12,11 +12,11 @@ samrat_read_strata(strata_file, pars)
 \item{pars}{Parameter outputs from \link{samrat_read_params}}
 }
 \value{
-Returns a list with 4 elements:
+Returns a \code{data.frame} with 3 elements:
 \itemize{
-\item{"gen_pars"}{"General parameters \code{list}"}
-\item{"var_pars"}{"Predictor variables \code{data.frame}"}
-\item{"cf_pars"}{"Counterfactual variables \code{data.frame}}
+\item{"admin0"}{"Admin Level 0"}
+\item{"admin1"}{"Admin Level 1"}
+\item{"strata"}{"Stratum level"}
 }
 }
 \description{

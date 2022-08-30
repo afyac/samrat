@@ -32,3 +32,19 @@ param_file <- system.file(
 pars <- samrat_read_params(param_file)
 names(pars)
 ```
+We then use this object when reading in our strata and survey metadata:
+
+```{r, parameters}
+# read in the strata params
+strata_file <- system.file(
+  "extdata/som_analysis_strata.xlsx", package = "samrat"
+)
+strata <- samrat_read_strata(strata_file, pars)
+
+# read in the survey meta params
+surveymeta_file <- system.file(
+  "extdata/som_survey_metadata.xlsx", package = "samrat"
+)
+smeta <- samrat_read_surveymeta(surveymeta_file, pars)
+
+```

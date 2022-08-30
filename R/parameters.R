@@ -1,4 +1,3 @@
-#------------------------------------------------
 #' Read samrat parameters
 #'
 #' \code{samrat_read_params} Read samrat parameters
@@ -64,12 +63,11 @@ samrat_read_params <- function(param_file) {
     "cf_pars" = cf_pars
   )
 
-  class(pars) <- c(class(pars), "samrat_pars")
+  class(pars) <- c(class(pars), "samrat_params")
   return(pars)
 
 }
 
-#------------------------------------------------
 #' Read samrat strata parameters
 #'
 #' \code{samrat_read_strata} Read samrat strata parameters
@@ -79,11 +77,11 @@ samrat_read_params <- function(param_file) {
 #'
 #' @param strata_file Name of strata file
 #' @param pars Parameter outputs from [samrat_read_params]
-#' @return Returns a list with 4 elements:
+#' @return Returns a `data.frame` with 3 elements:
 #' \itemize{
-#'       \item{"gen_pars"}{"General parameters `list`"}
-#'       \item{"var_pars"}{"Predictor variables `data.frame`"}
-#'       \item{"cf_pars"}{"Counterfactual variables `data.frame`}
+#'       \item{"admin0"}{"Admin Level 0"}
+#'       \item{"admin1"}{"Admin Level 1"}
+#'       \item{"strata"}{"Stratum level"}
 #'       }
 #'
 #' @export
@@ -105,7 +103,7 @@ samrat_read_strata <- function(strata_file, pars) {
 
   assert_string(strata_file)
   assert_file_exists(strata_file)
-  assert_custom_class(pars, "samrat_pars")
+  assert_custom_class(pars, "samrat_params")
 
   #...................................
   ## Analysis strata
@@ -122,8 +120,62 @@ samrat_read_strata <- function(strata_file, pars) {
 
 }
 
+#' Read samrat survey metadata
+#'
+#' \code{samrat_read_surveymeta} Read samrat survey metadata
+#'
+#' @description Reads survey metadata from formatted `samrat` survey meta file.
+#'   TODO: Link here to correct format for a parameter file
+#'
+#' @param surveymeta_file Name of survey meta file
+#' @param pars Parameter outputs from [samrat_read_params]
+#' @return Returns a list with 4 elements:
+#' \itemize{
+#'       \item{"gen_pars"}{"General parameters `list`"}
+#'       \item{"var_pars"}{"Predictor variables `data.frame`"}
+#'       \item{"cf_pars"}{"Counterfactual variables `data.frame`}
+#'       }
+#'
+#' @export
+#' @examples {
+#'
+#' param_file <- system.file(
+#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' )
+#' pars <- samrat_read_params(param_file)
+#'
+#' surveymeta_file <- system.file(
+#' "extdata/som_survey_metadata.xlsx", package="samrat"
+#' )
+#' strata <- samrat_read_strata(surveymeta_file, pars)
+#'
+#' }
+samrat_read_surveymeta <- function(surveymeta_file, pars) {
 
-#------------------------------------------------
+  assert_string(surveymeta_file)
+  assert_file_exists(surveymeta_file)
+  assert_custom_class(pars, "samrat_params")
+
+  #...................................
+  ## Analysis strata
+  smeta <- readxl::read_excel(surveymeta_file, sheet = "survey_metadata")
+  smeta <- as.data.frame(smeta)
+
+  # Rename country-specific geographic units
+  colnames(smeta)[colnames(smeta) == pars$gen_pars$admin2_name] <- "stratum"
+  colnames(smeta)[colnames(smeta) == pars$gen_pars$admin1_name] <- "admin1"
+
+  # TODO: Other Country specifics, e.g. Unicef Nigeria LGAs
+
+  # TODO: Suitable checks that survey meta data frame has all needed vars
+
+  # Give class for later checks
+  class(smeta) <- c(class(smeta), "samrat_surveymeta")
+
+  return(smeta)
+
+}
+
 #' check_param_file
 #'
 #' \code{check_param_file} Checks param file is correctly structures
