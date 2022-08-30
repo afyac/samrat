@@ -6,7 +6,7 @@
 #------------------------------------------------
 #' read_samrat_file
 #'
-#' \code{read_file} read samrat package file
+#' \code{read_samrat_file} read samrat package file
 #'
 #' @description Load a file from within the inst/extdata folder of the
 #'   ICMDMM package. File extension must be one of .csv, .rds, or .xlsx
@@ -16,6 +16,7 @@
 #'
 #' @importFrom utils read.csv
 #' @importFrom readxl read_xlsx
+#' @keywords internal
 
 read_samrat_file <- function(name, sheet = NULL) {
 
