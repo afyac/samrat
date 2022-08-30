@@ -8,6 +8,7 @@
 ^appveyor\.yml$
 ^docker$
 ^\.hadolint\.yaml$
+^_pkgdown\.yml$
 \.valgrind_ignore$
 ^scripts$
 \.gcda$
