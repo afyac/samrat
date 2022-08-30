@@ -8,7 +8,7 @@ test_that("null-or-value works", {
 })
 
 
-test_that("read_samrat_file" , {
+test_that("read_samrat_file", {
 
   # check these idential reads works
   ch1 <- read_samrat_file("som_idp_prmn_counterfactuals.csv")

@@ -23,20 +23,20 @@ read_samrat_file <- function(name, sheet = NULL) {
   # check that valid file extension
   ext <- strsplit(name, "\\.")[[1]]
   ext <- ext[length(ext)]
-  if(is.element(ext, c("csv", "rds", "xlsx")) == FALSE){
+  if (is.element(ext, c("csv", "rds", "xlsx")) == FALSE) {
     stop("file extension not valid")
   }
 
   # get full file path
-  name_full <- system.file("extdata/", name, package="samrat", mustWork = TRUE)
+  path <- system.file("extdata/", name, package = "samrat", mustWork = TRUE)
 
   # read in file
   if (ext == "rds") {
-    ret <- readRDS(name_full)
+    ret <- readRDS(path)
   } else if (ext == "csv") {
-    ret <- utils::read.csv(file=name_full, header=TRUE, sep=",")
+    ret <- utils::read.csv(file = path, header = TRUE, sep = ",")
   } else {
-    ret <- readxl::read_xlsx(name_full, sheet = sheet)
+    ret <- readxl::read_xlsx(path, sheet = sheet)
   }
 
   return(ret)
