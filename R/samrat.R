@@ -4,6 +4,7 @@
 #' mortality and short term predictions.
 #'
 #' @docType package
+#' @keywords internal
 #' @name samrat
 #'
 #'
