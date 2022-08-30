@@ -7,7 +7,9 @@
 read_samrat_file(name, sheet = NULL)
 }
 \arguments{
-\item{name}{the name of a file within the inst/extdata folder.}
+\item{name}{Name of a file within the inst/extdata folder.}
+
+\item{sheet}{Name of sheet in xlsx file. Default = \code{NULL}}
 }
 \description{
 Load a file from within the inst/extdata folder of the
