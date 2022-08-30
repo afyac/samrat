@@ -78,18 +78,33 @@
 
     
     
+<div class="section level2">
+<h2 id="structure">Structure<a class="anchor" aria-label="anchor" href="#structure"></a>
+</h2>
 <p>This is an overall structure of the <code>samrat</code> package, which details how the different analysis elements (parameters, analysis, plotting etc) are functionally related.</p>
 <p>The package structure is shown below:</p>
 <div class="figure">
 <img src="imgs/structure.png" alt=""><p class="caption">Samrat Structure</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">samrat</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="directory-concepts">Directory concepts<a class="anchor" aria-label="anchor" href="#directory-concepts"></a>
+</h2>
+<p>For each analysis, we will try to keep to a one directory per analysis structure, which will include:</p>
+<ul>
+<li>Input parameter files (xlsx, csv, rds)</li>
+<li>Survey dataset directory</li>
+</ul>
+<p>In this directory, the output of analysis will be stored in <code>output</code>.</p>
+<p>This setup can then be linked with suitable reproducibility pipelines later on (cf <a href="https://github.com/vimc/orderly" class="external-link">orderly</a>).</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
