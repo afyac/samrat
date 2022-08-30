@@ -114,8 +114,9 @@ samrat_read_strata <- function(strata_file, pars) {
   colnames(strata)[colnames(strata) == pars$gen_pars$admin2_name] <- "stratum"
   colnames(strata)[colnames(strata) == pars$gen_pars$admin1_name] <- "admin1"
 
-  class(strata) <- c(class(strata), "samrat_strata")
+  # TODO: Suitable checks that strata data frame has all needed vars
 
+  class(strata) <- c(class(strata), "samrat_strata")
   return(strata)
 
 }
@@ -129,12 +130,7 @@ samrat_read_strata <- function(strata_file, pars) {
 #'
 #' @param surveymeta_file Name of survey meta file
 #' @param pars Parameter outputs from [samrat_read_params]
-#' @return Returns a list with 4 elements:
-#' \itemize{
-#'       \item{"gen_pars"}{"General parameters `list`"}
-#'       \item{"var_pars"}{"Predictor variables `data.frame`"}
-#'       \item{"cf_pars"}{"Counterfactual variables `data.frame`}
-#'       }
+#' @return Returns a data.frame with metadata on surveys available
 #'
 #' @export
 #' @examples {
@@ -147,7 +143,7 @@ samrat_read_strata <- function(strata_file, pars) {
 #' surveymeta_file <- system.file(
 #' "extdata/som_survey_metadata.xlsx", package="samrat"
 #' )
-#' strata <- samrat_read_strata(surveymeta_file, pars)
+#' strata <- samrat_read_surveymeta(surveymeta_file, pars)
 #'
 #' }
 samrat_read_surveymeta <- function(surveymeta_file, pars) {
@@ -171,7 +167,6 @@ samrat_read_surveymeta <- function(surveymeta_file, pars) {
 
   # Give class for later checks
   class(smeta) <- c(class(smeta), "samrat_surveymeta")
-
   return(smeta)
 
 }

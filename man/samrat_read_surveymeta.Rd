@@ -12,12 +12,7 @@ samrat_read_surveymeta(surveymeta_file, pars)
 \item{pars}{Parameter outputs from \link{samrat_read_params}}
 }
 \value{
-Returns a list with 4 elements:
-\itemize{
-\item{"gen_pars"}{"General parameters \code{list}"}
-\item{"var_pars"}{"Predictor variables \code{data.frame}"}
-\item{"cf_pars"}{"Counterfactual variables \code{data.frame}}
-}
+Returns a data.frame with metadata on surveys available
 }
 \description{
 Reads survey metadata from formatted \code{samrat} survey meta file.
@@ -37,7 +32,7 @@ pars <- samrat_read_params(param_file)
 surveymeta_file <- system.file(
 "extdata/som_survey_metadata.xlsx", package="samrat"
 )
-strata <- samrat_read_strata(surveymeta_file, pars)
+strata <- samrat_read_surveymeta(surveymeta_file, pars)
 
 }
 }

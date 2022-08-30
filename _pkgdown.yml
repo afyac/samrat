@@ -7,6 +7,8 @@ reference:
     desc: "Functions for setting and reading in parameter files"
     contents:
       - samrat_read_params
+      - samrat_read_strata
+      - samrat_read_surveymeta
 
   - title: "Modelling Functions"
     desc: >
