@@ -42,4 +42,10 @@
   <url>
     <loc>/reference/samrat_read_params.html</loc>
   </url>
+  <url>
+    <loc>/reference/samrat_read_strata.html</loc>
+  </url>
+  <url>
+    <loc>/reference/samrat_read_surveymeta.html</loc>
+  </url>
 </urlset>
