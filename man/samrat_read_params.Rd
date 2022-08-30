@@ -24,3 +24,14 @@ TODO: Link here to correct format for a parameter file
 \details{
 \code{samrat_read_params} Read samrat parameters
 }
+\examples{
+{
+
+param_file <- system.file(
+"extdata/som_analysis_parameters.xlsx", package="samrat"
+)
+pars <- samrat_read_params(param_file)
+names(pars)
+
+}
+}
