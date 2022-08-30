@@ -6,6 +6,7 @@
 status](https://github.com/OJWatson/samrat/workflows/R-CMD-check/badge.svg)](https://github.com/OJWatson/samrat/actions)
 [![CodeFactor](https://www.codefactor.io/repository/github/OJWatson/samrat/badge)](https://www.codefactor.io/repository/github/OJWatson/samrat)
 [![codecov.io](https://codecov.io/github/OJWatson/samrat/coverage.svg?branch=main)](https://codecov.io/github/OJWatson/samrat?branch=main)
+[![R-CMD-check](https://github.com/OJWatson/samrat/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/OJWatson/samrat/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Installation
