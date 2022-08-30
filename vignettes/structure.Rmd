@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Structure
+
 This is an overall structure of the `samrat` package, which details how the 
 different analysis elements (parameters, analysis, plotting etc) are functionally
 related. 
@@ -22,8 +24,15 @@ The package structure is shown below:
 
 ![Samrat Structure](imgs/structure.png)
 
+## Directory concepts
 
+For each analysis, we will try to keep to a one directory per analysis structure,
+which will include:
 
-```{r setup}
-library(samrat)
-```
+- Input parameter files (xlsx, csv, rds)
+- Survey dataset directory
+
+In this directory, the output of analysis will be stored in `output`. 
+
+This setup can then be linked with suitable reproducibility pipelines later on
+(cf [orderly](https://github.com/vimc/orderly)). 
