@@ -640,7 +640,7 @@ assert_dim <-
     assert_2d(x, name = name)
     assert_pos_int(y, name = "y variable in assert_dim()")
     assert_length(y, 2, name = "y variable in assert_dim()")
-    if (nrow(x) != y[1] | ncol(x) != y[2]) {
+    if (nrow(x) != y[1] || ncol(x) != y[2]) {
       stop(sprintf(message, name, y[1], y[2]), call. = FALSE)
     }
     return(TRUE)
