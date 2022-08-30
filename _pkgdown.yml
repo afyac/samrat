@@ -1,0 +1,43 @@
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: "Parameter"
+    desc: "Functions for setting and reading in parameter files"
+    contents:
+      - samrat_read_params
+
+  - title: "Modelling Functions"
+    desc: >
+      "Series of internal and external functions used for modelling
+      analyses."
+    contents:
+      - f_liv
+
+
+  - title: "internal"
+    desc: "Internal Functions"
+    contents:
+      - has_keyword("internal")
+
+navbar:
+  type: default
+  left:
+    - href: index.html
+      icon: fa-home
+    - text: Introduction
+      href: articles/introduction.html
+    - text: Reference
+      href: reference/index.html
+    - text: Articles
+      menu:
+      - text: Introduction to samrat
+        href: articles/introduction.html
+      - text: Structure to samrat
+        href: articles/structure.html
+    - text: News
+      href: news/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/OJWatson/samrat
