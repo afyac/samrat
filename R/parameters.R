@@ -64,9 +64,64 @@ samrat_read_params <- function(param_file) {
     "cf_pars" = cf_pars
   )
 
+  class(pars) <- c(class(pars), "samrat_pars")
   return(pars)
 
 }
+
+#------------------------------------------------
+#' Read samrat strata parameters
+#'
+#' \code{samrat_read_strata} Read samrat strata parameters
+#'
+#' @description Reads parameters from formatted `samrat` strata file.
+#'   TODO: Link here to correct format for a parameter file
+#'
+#' @param strata_file Name of strata file
+#' @param pars Parameter outputs from [samrat_read_params]
+#' @return Returns a list with 4 elements:
+#' \itemize{
+#'       \item{"gen_pars"}{"General parameters `list`"}
+#'       \item{"var_pars"}{"Predictor variables `data.frame`"}
+#'       \item{"cf_pars"}{"Counterfactual variables `data.frame`}
+#'       }
+#'
+#' @export
+#' @examples {
+#'
+#' param_file <- system.file(
+#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' )
+#' pars <- samrat_read_params(param_file)
+#'
+#' strata_file <- system.file(
+#' "extdata/som_analysis_strata.xlsx", package="samrat"
+#' )
+#' strata <- samrat_read_strata(strata_file, pars)
+#' names(strata)
+#'
+#' }
+samrat_read_strata <- function(strata_file, pars) {
+
+  assert_string(strata_file)
+  assert_file_exists(strata_file)
+  assert_custom_class(pars, "samrat_pars")
+
+  #...................................
+  ## Analysis strata
+  strata <- readxl::read_excel(strata_file, sheet = "strata")
+  strata <- as.data.frame(strata)
+
+  # Rename country-specific geographic units
+  colnames(strata)[colnames(strata) == pars$gen_pars$admin2_name] <- "stratum"
+  colnames(strata)[colnames(strata) == pars$gen_pars$admin1_name] <- "admin1"
+
+  class(strata) <- c(class(strata), "samrat_strata")
+
+  return(strata)
+
+}
+
 
 #------------------------------------------------
 #' check_param_file

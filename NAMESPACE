@@ -2,6 +2,7 @@
 
 export("%>%")
 export(samrat_read_params)
+export(samrat_read_strata)
 importFrom(magrittr,"%>%")
 importFrom(readxl,read_xlsx)
 importFrom(utils,read.csv)
