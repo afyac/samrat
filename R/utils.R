@@ -11,7 +11,8 @@
 #' @description Load a file from within the inst/extdata folder of the
 #'   ICMDMM package. File extension must be one of .csv, .rds, or .xlsx
 #'
-#' @param name the name of a file within the inst/extdata folder.
+#' @param name Name of a file within the inst/extdata folder.
+#' @param sheet Name of sheet in xlsx file. Default = `NULL`
 #'
 #' @importFrom utils read.csv
 #' @importFrom readxl read_xlsx
