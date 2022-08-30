@@ -37,7 +37,7 @@ samrat_read_params <- function(param_file) {
 
   # turn this into a suitable list of our parameters
   gen_pars_list <- split(gen_pars$value, gen_pars$parameter)
-  for(i in seq_along(gen_pars_list)) {
+  for (i in seq_along(gen_pars_list)) {
     if (suppressWarnings(!is.na(as.numeric(gen_pars_list[[i]])))) {
       gen_pars_list[[i]] <- as.numeric(gen_pars_list[[i]])
     }
@@ -56,14 +56,12 @@ samrat_read_params <- function(param_file) {
   #...................................
   ## TODO: Should this be read in here: Probably no
   # Sensitivity analysis parameters
-  # sens_pars <- readxl::read_excel(param_file, sheet = "sensitivity_parameters")
-  # sens_pars <- as.data.frame(sens_pars)
 
   # Bring all the parameters into one list
   pars <- list(
     "gen_pars" = gen_pars_list,
     "var_pars" = var_pars,
-    "cf_pars"= cf_pars
+    "cf_pars" = cf_pars
   )
 
   return(pars)
@@ -83,7 +81,7 @@ check_param_file <- function(pars) {
 
   # read in the example params from the package
   param_file <- system.file(
-    "extdata/som_analysis_parameters.xlsx", package="samrat"
+    "extdata/som_analysis_parameters.xlsx", package = "samrat"
   )
   pars_ex <- samrat_read_params(param_file)
 
