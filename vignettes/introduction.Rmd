@@ -45,6 +45,6 @@ strata <- samrat_read_strata(strata_file, pars)
 surveymeta_file <- system.file(
   "extdata/som_survey_metadata.xlsx", package = "samrat"
 )
-smeta <- samrat_read_surveymeta(surveymeta_file, pars)
+surveys <- samrat_read_surveymeta(surveymeta_file, pars)
 
 ```
