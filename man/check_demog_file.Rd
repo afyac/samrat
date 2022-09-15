@@ -4,7 +4,7 @@
 \alias{check_demog_file}
 \title{check_demog_file}
 \usage{
-check_demog_file(demog_pars, pars)
+check_demog_file(demog_pars, pars, check = FALSE)
 }
 \arguments{
 \item{demog_pars}{Output of \link{samrat_read_demography}}

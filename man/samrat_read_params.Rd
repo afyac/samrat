@@ -4,10 +4,12 @@
 \alias{samrat_read_params}
 \title{Read samrat parameters}
 \usage{
-samrat_read_params(param_file)
+samrat_read_params(param_file, check = TRUE)
 }
 \arguments{
 \item{param_file}{Name of parameter file}
+
+\item{check}{Boolean for whether to check the output. Default = \code{TRUE}}
 }
 \value{
 Returns a list with 4 elements:

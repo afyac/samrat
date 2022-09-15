@@ -6,6 +6,7 @@
 #'   TODO: Link here to correct format for a parameter file
 #'
 #' @param param_file Name of parameter file
+#' @param check Boolean for whether to check the output. Default = `TRUE`
 #'
 #' @return Returns a list with 4 elements:
 #' \itemize{
@@ -24,7 +25,7 @@
 #' names(pars)
 #'
 #' }
-samrat_read_params <- function(param_file) {
+samrat_read_params <- function(param_file, check = TRUE) {
 
   # check file is suitable name and exists
   assert_string(param_file)
@@ -60,7 +61,7 @@ samrat_read_params <- function(param_file) {
   class(pars) <- c(class(pars), "samrat_params")
 
   # Run checks before returning
-  check_param_file(pars)
+  if (check) check_param_file(pars)
   return(pars)
 
 }
@@ -175,8 +176,9 @@ samrat_read_surveymeta <- function(surveymeta_file, pars) {
 #' @description Reads demography from formatted `samrat` demog_pars file.
 #'   TODO: Link here to correct format for a parameter file
 #'
+#' @inheritParams samrat_read_params
+#' @inheritParams samrat_read_strata
 #' @param demog_file Name of demogrpahy file
-#' @inheritParams pars samrat_read_strata
 #'
 #' @return Returns a list with 2 elements:
 #' \itemize{
@@ -185,16 +187,23 @@ samrat_read_surveymeta <- function(surveymeta_file, pars) {
 #'       }
 #'
 #' @export
+#' @importFrom dplyr filter pull
+#' @importFrom rlang .data
 #' @examples {
+#'
+#' param_file <- system.file(
+#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' )
+#' pars <- samrat_read_params(param_file)
 #'
 #' demog_file <- system.file(
 #' "extdata/som_demog_data.xlsx", package="samrat"
 #' )
-#' demog_pars <- samrat_read_demography(param_file)
+#' demog_pars <- samrat_read_demography(demog_file, pars)
 #' names(demog_pars)
 #'
 #' }
-samrat_read_demography <- function(demog_file, pars) {
+samrat_read_demography <- function(demog_file, pars, check = TRUE) {
 
   assert_string(demog_file)
   assert_file_exists(demog_file)
@@ -213,7 +222,7 @@ samrat_read_demography <- function(demog_file, pars) {
   pop_sources <- as.data.frame(pop_sources)
 
   # exclude any datasets that are not going to be used for analysis
-  pop_sources <- subset(pop_sources, used_in_analysis == "Y" )
+  pop_sources <- pop_sources %>% filter(.data$used_in_analysis == "Y")
 
   #...................................
   ## Dictionary variables needed to identify what variables are to be subset
@@ -236,10 +245,12 @@ samrat_read_demography <- function(demog_file, pars) {
     # check that import has been successful
     quiet_message("+++++++++++++++++++++++++++++++++++++")
     quiet_message(paste("now importing population", x1) )
-    quiet_message(str(x2))
+    quiet_message(utils::str(x2))
 
     # only keep variables that will be used for analysis
-    vars <- subset(dictionary, worksheet == x1 & used_in_analysis == "Y")[, "variable"]
+    vars <- dictionary %>%
+      filter(.data$worksheet == x1 & .data$used_in_analysis == "Y") %>%
+      pull(.data$variable)
     x2 <- x2[, c(unlist(vars))]
 
     # rename country-specific geographic units
@@ -259,7 +270,7 @@ samrat_read_demography <- function(demog_file, pars) {
   class(demog_pars) <- c(class(demog_pars), "samrat_demog")
 
   # Run checks before returning
-  check_demog_file(demog_pars, pars)
+  if (check) check_demog_file(demog_pars, pars)
   return(demog_pars)
 
 }
@@ -279,7 +290,7 @@ check_param_file <- function(pars) {
   param_file <- system.file(
     "extdata/som_analysis_parameters.xlsx", package = "samrat"
   )
-  pars_ex <- samrat_read_params(param_file)
+  pars_ex <- samrat_read_params(param_file, check = FALSE)
 
   # simple check that the names are the same in gen_pars
   if (!all(names(pars_ex$gen_pars) %in% names(pars$gen_pars))) {
@@ -307,13 +318,13 @@ check_param_file <- function(pars) {
 #'
 #' @keywords internal
 
-check_demog_file <- function(demog_pars, pars) {
+check_demog_file <- function(demog_pars, pars, check = FALSE) {
 
   # read in the example params from the package
   param_file <- system.file(
     "extdata/som_demog_data.xlsx", package = "samrat"
   )
-  pars_ex <- samrat_read_demography(param_file, pars)
+  pars_ex <- samrat_read_demography(param_file, pars, check)
 
   # simple check that the names are the same in gen_pars
   if (!all(names(pars_ex$demog_pars) %in% names(demog_pars$demog_pars))) {
@@ -321,8 +332,8 @@ check_demog_file <- function(demog_pars, pars) {
   }
 
   # simple check that the names are the same in var_pars
-  if (class(pars_ex$pop_sources) != class(demog_pars$pop_sources) &&
-      length(demog_pars$pop_sources == 0)) {
+  if (class(pars_ex$pop_sources) != class(demog_pars$pop_sources) ||
+      length(demog_pars$pop_sources) == 0) {
     stop("demog_file pop_sources sheets not correctly imported or formatted")
   }
 

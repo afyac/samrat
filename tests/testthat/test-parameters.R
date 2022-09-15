@@ -42,7 +42,28 @@ test_that("samrat_read_surveymeta works", {
   surveymeta_file <- system.file(
     "extdata/som_survey_metadata.xlsx", package = "samrat"
   )
-  smeta <- samrat_read_surveymeta(surveymeta_file, pars)
-  expect_true(inherits(smeta, "samrat_surveymeta"))
+  surveys <- samrat_read_surveymeta(surveymeta_file, pars)
+  expect_true(inherits(surveys, "samrat_surveymeta"))
+
+})
+
+test_that("samrat_read_demography works", {
+
+  param_file <- system.file("extdata/som_analysis_parameters.xlsx",
+                            package = "samrat")
+  pars <- samrat_read_params(param_file)
+
+  demog_file <- system.file(
+    "extdata/som_demog_data.xlsx", package = "samrat"
+  )
+  demog_pars <- samrat_read_demography(demog_file, pars)
+  expect_equal(names(demog_pars), c("demog_pars", "pop_sources"))
+  expect_true(inherits(demog_pars, "samrat_demog"))
+
+  demog_pars$pop_sources <- list()
+  expect_error(check_demog_file(demog_pars, pars), "pop_sources")
+
+  demog_pars$demog_pars$assumed_cbr <- NULL
+  expect_error(check_demog_file(demog_pars, pars), "variables")
 
 })

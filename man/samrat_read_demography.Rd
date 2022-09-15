@@ -4,10 +4,14 @@
 \alias{samrat_read_demography}
 \title{Read samrat demographic data}
 \usage{
-samrat_read_demography(demog_file, pars)
+samrat_read_demography(demog_file, pars, check = TRUE)
 }
 \arguments{
 \item{demog_file}{Name of demogrpahy file}
+
+\item{pars}{Parameter outputs from \link{samrat_read_params}}
+
+\item{check}{Boolean for whether to check the output. Default = \code{TRUE}}
 }
 \value{
 Returns a list with 2 elements:
@@ -26,10 +30,15 @@ TODO: Link here to correct format for a parameter file
 \examples{
 {
 
+param_file <- system.file(
+"extdata/som_analysis_parameters.xlsx", package="samrat"
+)
+pars <- samrat_read_params(param_file)
+
 demog_file <- system.file(
 "extdata/som_demog_data.xlsx", package="samrat"
 )
-demog_pars <- samrat_read_demography(param_file)
+demog_pars <- samrat_read_demography(demog_file, pars)
 names(demog_pars)
 
 }
