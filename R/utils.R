@@ -76,7 +76,7 @@ par_list_from_df <- function(pars, value = "value", parameter = "parameter") {
 #' @keywords internal
 quiet_message <- function(msg) {
 
-  if(Sys.getenv("SAMRAT_LOUD") == "TRUE") {
+  if (Sys.getenv("SAMRAT_LOUD") == "TRUE") {
     message(msg)
   }
 

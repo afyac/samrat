@@ -18,4 +18,4 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 TODO\.txt
-analysis
+^analysis$

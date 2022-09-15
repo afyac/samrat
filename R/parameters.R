@@ -244,7 +244,7 @@ samrat_read_demography <- function(demog_file, pars, check = TRUE) {
 
     # check that import has been successful
     quiet_message("+++++++++++++++++++++++++++++++++++++")
-    quiet_message(paste("now importing population", x1) )
+    quiet_message(paste("now importing population", x1))
     quiet_message(utils::str(x2))
 
     # only keep variables that will be used for analysis
