@@ -26,7 +26,7 @@ for how to set up and format the parameters .xlsx file.
 
 ```{r, parameters}
 param_file <- system.file(
-  "extdata/som_analysis_parameters.xlsx", package="samrat"
+  "extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 
 pars <- samrat_read_params(param_file)
