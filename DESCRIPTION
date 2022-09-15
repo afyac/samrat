@@ -20,5 +20,7 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 Imports: 
+    dplyr,
     magrittr,
-    readxl
+    readxl,
+    rlang

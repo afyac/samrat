@@ -13,7 +13,7 @@ read_samrat_file(name, sheet = NULL)
 }
 \description{
 Load a file from within the inst/extdata folder of the
-ICMDMM package. File extension must be one of .csv, .rds, or .xlsx
+\link{samrat} package. File extension must be one of .csv, .rds, or .xlsx
 }
 \details{
 \code{read_samrat_file} read samrat package file

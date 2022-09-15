@@ -28,3 +28,9 @@ test_that("read_samrat_file", {
   expect_error(read_samrat_file("test.test"), "file extension")
 
 })
+
+test_that("samrat quiet messaging", {
+  expect_invisible(quiet_message("msg"))
+  Sys.setenv("SAMRAT_LOUD" = "TRUE")
+  expect_message(quiet_message("msg"))
+})

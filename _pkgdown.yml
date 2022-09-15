@@ -9,6 +9,7 @@ reference:
       - samrat_read_params
       - samrat_read_strata
       - samrat_read_surveymeta
+      - samrat_read_demography
 
   - title: "Modelling Functions"
     desc: >
