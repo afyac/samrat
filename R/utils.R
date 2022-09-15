@@ -9,7 +9,7 @@
 #' \code{read_samrat_file} read samrat package file
 #'
 #' @description Load a file from within the inst/extdata folder of the
-#'   ICMDMM package. File extension must be one of .csv, .rds, or .xlsx
+#'   [samrat] package. File extension must be one of .csv, .rds, or .xlsx
 #'
 #' @param name Name of a file within the inst/extdata folder.
 #' @param sheet Name of sheet in xlsx file. Default = `NULL`
@@ -40,5 +40,44 @@ read_samrat_file <- function(name, sheet = NULL) {
   }
 
   return(ret)
+
+}
+
+
+#------------------------------------------------
+#' par_list_from_df
+#'
+#' \code{par_list_from_df} convert data.frame into formatted list
+#'
+#' @description Convert data frame with columns value and parameter into
+#'   named list with numeric values formatted
+#'
+#' @param pars \code{data.frame} of parameters and values
+#' @param value String for value column. Default = `"value"`
+#' @param parameter String for value column. Default = `"parameter"`
+#'
+#' @keywords internal
+
+par_list_from_df <- function(pars, value = "value", parameter = "parameter") {
+
+  # turn this into a suitable list of our parameters
+  pars_list <- split(pars[[value]], pars[[parameter]])
+  for (i in seq_along(pars_list)) {
+    if (suppressWarnings(!is.na(as.numeric(pars_list[[i]])))) {
+      pars_list[[i]] <- as.numeric(pars_list[[i]])
+    }
+  }
+
+  return(pars_list)
+
+}
+
+#' @noRd
+#' @keywords internal
+quiet_message <- function(msg) {
+
+  if(Sys.getenv("SAMRAT_LOUD") == "TRUE") {
+    message(msg)
+  }
 
 }
