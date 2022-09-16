@@ -103,7 +103,7 @@ samrat_read_strata <- function(strata_file, pars_list) {
 
   assert_string(strata_file)
   assert_file_exists(strata_file)
-  assert_custom_class(pl, "samrat_params")
+  assert_custom_class(pars_list, "samrat_params")
   pl <- pars_list
 
   #...................................
