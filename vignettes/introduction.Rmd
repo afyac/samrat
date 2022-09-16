@@ -29,7 +29,7 @@ param_file <- system.file(
   "extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 
-pars_list <- samrat_read_params(pars_list)
+pars_list <- samrat_read_params(param_file)
 names(pars_list)
 ```
 We then use this object when reading in our strata and survey metadata:
