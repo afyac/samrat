@@ -4,10 +4,10 @@
 \alias{check_demog_file}
 \title{check_demog_file}
 \usage{
-check_demog_file(demog_pars, pars, check = FALSE)
+check_demog_file(demog_list, pars_list, check = FALSE)
 }
 \arguments{
-\item{demog_pars}{Output of \link{samrat_read_demography}}
+\item{demog_list}{Output of \link{samrat_read_demography}}
 }
 \description{
 \code{check_demog_file} Checks demog file is correctly structured
