@@ -332,7 +332,7 @@ samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
   ## Manual Imputations
   manual_imputations <- readxl::read_excel(
     predictors_file, sheet = "manual_imputations"
-    )
+  )
   manual_imputations <- as.data.frame(manual_imputations)
 
   #...................................

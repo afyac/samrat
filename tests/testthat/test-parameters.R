@@ -93,7 +93,7 @@ test_that("samrat_read_predictors works", {
   expect_true(inherits(pred_list, "samrat_predictors"))
 
   pred_list$predictors_list <- list()
-  expect_error(check_predictors_file(pred_list, pars_list), "predictors_file")
+  expect_error(check_predictors_file(pred_list, pars_list), "formatted")
 
   pred_list$predictors$used_in_analysis <- NULL
   expect_error(check_demog_file(pred_list, pars_list), "variables")
