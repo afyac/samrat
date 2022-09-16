@@ -96,6 +96,6 @@ test_that("samrat_read_predictors works", {
   expect_error(check_predictors_file(pred_list, pars_list), "formatted")
 
   pred_list$predictors$used_in_analysis <- NULL
-  expect_error(check_demog_file(pred_list, pars_list), "variables")
+  expect_error(check_predictors_file(pred_list, pars_list), "variables")
 
 })
