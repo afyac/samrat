@@ -4,20 +4,23 @@
 \alias{samrat_read_demography}
 \title{Read samrat demographic data}
 \usage{
-samrat_read_demography(demog_file, pars, check = TRUE)
+samrat_read_demography(demog_file, pars_list, check = TRUE)
 }
 \arguments{
 \item{demog_file}{Name of demogrpahy file}
 
-\item{pars}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
 
 \item{check}{Boolean for whether to check the output. Default = \code{TRUE}}
 }
 \value{
-Returns a list with 2 elements:
+Returns a list with 5 elements:
 \itemize{
-\item{"demog_pars"}{"Demography parameters \code{list}"}
-\item{"pop_sources"}{"Population source \code{list} of \code{data.frames}"}
+\item{"demog_pars_list"}{"Demography parameters \code{list}"}
+\item{"pop_sources_list"}{"Population source \code{list} of \code{data.frames}"}
+\item{"demog_pars"}{"Demography parameters \code{data.frame}"}
+\item{"pop_sources"}{"Population sources \code{data.frame}"}
+\item{"dictionary"}{"Demography Dictionary \code{data.frame}"}
 }
 }
 \description{
@@ -33,13 +36,13 @@ TODO: Link here to correct format for a parameter file
 param_file <- system.file(
 "extdata/som_analysis_parameters.xlsx", package="samrat"
 )
-pars <- samrat_read_params(param_file)
+pars_list <- samrat_read_params(param_file)
 
 demog_file <- system.file(
 "extdata/som_demog_data.xlsx", package="samrat"
 )
-demog_pars <- samrat_read_demography(demog_file, pars)
-names(demog_pars)
+demography_list <- samrat_read_demography(demog_file, pars_list)
+names(demography_list)
 
 }
 }

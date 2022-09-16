@@ -29,8 +29,8 @@ param_file <- system.file(
   "extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 
-pars <- samrat_read_params(param_file)
-names(pars)
+pars_list <- samrat_read_params(param_file)
+names(pars_list)
 ```
 We then use this object when reading in our strata and survey metadata:
 
@@ -39,13 +39,13 @@ We then use this object when reading in our strata and survey metadata:
 strata_file <- system.file(
   "extdata/som_analysis_strata.xlsx", package = "samrat"
 )
-strata <- samrat_read_strata(strata_file, pars)
+strata <- samrat_read_strata(strata_file, pars_list)
 
 # read in the survey meta params
 surveymeta_file <- system.file(
   "extdata/som_survey_metadata.xlsx", package = "samrat"
 )
-surveys <- samrat_read_surveymeta(surveymeta_file, pars)
+surveys <- samrat_read_surveymeta(surveymeta_file, pars_list)
 
 ```
 
@@ -56,6 +56,6 @@ Similarly when reading in our demography files:
 demog_file <- system.file(
   "extdata/som_demog_data.xlsx", package = "samrat"
 )
-demog_pars <- samrat_read_demography(demog_file, pars)
+demog_pars <- samrat_read_demography(demog_file, pars_list)
 names(demog_pars)
 ```

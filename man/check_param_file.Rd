@@ -4,10 +4,10 @@
 \alias{check_param_file}
 \title{check_param_file}
 \usage{
-check_param_file(pars)
+check_param_file(pars_list)
 }
 \arguments{
-\item{pars}{Output of \link{samrat_read_params}}
+\item{pars_list}{Output of \link{samrat_read_params}}
 }
 \description{
 \code{check_param_file} Checks param file is correctly structures

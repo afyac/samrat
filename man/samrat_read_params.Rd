@@ -14,7 +14,8 @@ samrat_read_params(param_file, check = TRUE)
 \value{
 Returns a list with 4 elements:
 \itemize{
-\item{"gen_pars"}{"General parameters \code{list}"}
+\item{"pars_list"}{"General parameters \code{list}"}
+\item{"gen_pars"}{"General parameters \code{data.frame}"}
 \item{"var_pars"}{"Predictor variables \code{data.frame}"}
 \item{"cf_pars"}{"Counterfactual variables \code{data.frame}}
 }
@@ -32,8 +33,8 @@ TODO: Link here to correct format for a parameter file
 param_file <- system.file(
 "extdata/som_analysis_parameters.xlsx", package="samrat"
 )
-pars <- samrat_read_params(param_file)
-names(pars)
+pars_list <- samrat_read_params(param_file)
+names(pars_list)
 
 }
 }

@@ -33,4 +33,5 @@ test_that("samrat quiet messaging", {
   expect_invisible(quiet_message("msg"))
   Sys.setenv("SAMRAT_LOUD" = "TRUE")
   expect_message(quiet_message("msg"))
+  Sys.setenv("SAMRAT_LOUD" = "FALSE")
 })
