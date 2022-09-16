@@ -94,7 +94,8 @@ TODO: Link here to correct format for a parameter file</p>
     <h2>Value</h2>
     
 
-<p>Returns a list with 4 elements:</p><ul><li><p>"gen_pars""General parameters <code>list</code>"</p></li>
+<p>Returns a list with 4 elements:</p><ul><li><p>"pars_list""General parameters <code>list</code>"</p></li>
+<li><p>"gen_pars""General parameters <code>data.frame</code>"</p></li>
 <li><p>"var_pars""Predictor variables <code>data.frame</code>"</p></li>
 <li><p>"cf_pars""Counterfactual variables <code>data.frame</code></p></li>
 </ul></div>
@@ -110,11 +111,11 @@ TODO: Link here to correct format for a parameter file</p>
 <span class="r-in"><span><span class="va">param_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span><span class="st">"extdata/som_analysis_parameters.xlsx"</span>, package<span class="op">=</span><span class="st">"samrat"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu">samrat_read_params</span><span class="op">(</span><span class="va">param_file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pars_list</span> <span class="op">&lt;-</span> <span class="fu">samrat_read_params</span><span class="op">(</span><span class="va">param_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pars_list</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gen_pars" "var_pars" "cf_pars" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "pars_list" "gen_pars"  "var_pars"  "cf_pars"  </span>
 </code></pre></div>
     </div>
   </div>
