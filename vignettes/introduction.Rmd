@@ -52,10 +52,23 @@ surveys <- samrat_read_surveymeta(surveymeta_file, pars_list)
 Similarly when reading in our demography files:
 
 ```{r, demog}
-# read in the strata params
+# read in the demog params
 demog_file <- system.file(
   "extdata/som_demog_data.xlsx", package = "samrat"
 )
-demog_pars <- samrat_read_demography(demog_file, pars_list)
-names(demog_pars)
+demog_list <- samrat_read_demography(demog_file, pars_list)
+names(demog_list)
+```
+
+And lastly when reading in our predictor files:
+
+```{r, predictors}
+
+# read in the predictor params
+predictors_file <- system.file(
+    "extdata/som_predictor_data.xlsx", package = "samrat"
+)
+
+pred_list <- samrat_read_predictors(predictors_file, pars_list)
+
 ```
