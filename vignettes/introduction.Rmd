@@ -83,7 +83,6 @@ when mortality is to be inferred for.
 # create timeseries
 tm_list <- samrat_timeseries(pars_list, strata)
 names(tm_list)
-
 ```
 
 This object contains the time series as `ts` and parameters detailing the start
