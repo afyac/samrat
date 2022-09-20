@@ -20,7 +20,7 @@
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #' names(pars_list)
@@ -88,12 +88,12 @@ samrat_read_params <- function(param_file, check = TRUE) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' strata_file <- system.file(
-#' "extdata/som_analysis_strata.xlsx", package="samrat"
+#' "extdata/som_analysis_strata.xlsx", package = "samrat"
 #' )
 #' strata <- samrat_read_strata(strata_file, pars_list)
 #' names(strata)
@@ -137,12 +137,12 @@ samrat_read_strata <- function(strata_file, pars_list) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' surveymeta_file <- system.file(
-#' "extdata/som_survey_metadata.xlsx", package="samrat"
+#' "extdata/som_survey_metadata.xlsx", package = "samrat"
 #' )
 #' strata <- samrat_read_surveymeta(surveymeta_file, pars_list)
 #'
@@ -199,12 +199,12 @@ samrat_read_surveymeta <- function(surveymeta_file, pars_list) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' demog_file <- system.file(
-#' "extdata/som_demog_data.xlsx", package="samrat"
+#' "extdata/som_demog_data.xlsx", package = "samrat"
 #' )
 #' demography_list <- samrat_read_demography(demog_file, pars_list)
 #' names(demography_list)
@@ -310,12 +310,12 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' predictors_file <- system.file(
-#' "extdata/som_predictor_data.xlsx", package="samrat"
+#' "extdata/som_predictor_data.xlsx", package = "samrat"
 #' )
 #' predictors_list <- samrat_read_predictors(predictors_file, pars_list)
 #' names(predictors_list)
@@ -507,12 +507,12 @@ check_predictors_file <- function(predictors_list, pars_list, check = FALSE) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' strata_file <- system.file(
-#'   "extdata/som_analysis_strata.xlsx", package="samrat"
+#'   "extdata/som_analysis_strata.xlsx", package = "samrat"
 #' )
 #' strata <- samrat_read_strata(strata_file, pars_list)
 #'
@@ -530,10 +530,10 @@ samrat_timeseries <- function(pars_list, strata) {
   ## Create a time series of stratum-time
   ## (including burn-in/-out periods of x years before/after analysis period)
 
-  # create a time unit variable tm (from month 1 to month T of analysis period T)
-  mth_T <- pl$y_analysis_end + pl$burn_out_period -
+  # create time unit variable tm (from month 1 to month t of analysis period T)
+  mth_t <- pl$y_analysis_end + pl$burn_out_period -
     pl$y_analysis_start + pl$burn_in_period
-  tm <- seq(1, ((mth_T * 12) + pl$m_analysis_end - pl$m_analysis_start + 1 ), 1)
+  tm <- seq(1, ((mth_t * 12) + pl$m_analysis_end - pl$m_analysis_start + 1), 1)
 
   # create a time series of stratum-year-months
   ts <- expand.grid(strata$stratum, tm)

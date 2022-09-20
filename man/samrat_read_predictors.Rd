@@ -32,12 +32,12 @@ TODO: Link here to correct format for a predictors file
 {
 
 param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package="samrat"
+"extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 pars_list <- samrat_read_params(param_file)
 
 predictors_file <- system.file(
-"extdata/som_predictor_data.xlsx", package="samrat"
+"extdata/som_predictor_data.xlsx", package = "samrat"
 )
 predictors_list <- samrat_read_predictors(predictors_file, pars_list)
 names(predictors_list)

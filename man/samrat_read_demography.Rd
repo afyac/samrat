@@ -34,12 +34,12 @@ TODO: Link here to correct format for a parameter file
 {
 
 param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package="samrat"
+"extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 pars_list <- samrat_read_params(param_file)
 
 demog_file <- system.file(
-"extdata/som_demog_data.xlsx", package="samrat"
+"extdata/som_demog_data.xlsx", package = "samrat"
 )
 demography_list <- samrat_read_demography(demog_file, pars_list)
 names(demography_list)
