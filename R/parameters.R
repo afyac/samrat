@@ -76,7 +76,7 @@ samrat_read_params <- function(param_file, check = TRUE) {
 #'   TODO: Link here to correct format for a parameter file
 #'
 #' @param strata_file Name of strata file
-#' @param pars_list Parameter outputs from [samrat_read_params]
+#' @param pars_list Parameter outputs from [samrat_read_params()]
 #' @return Returns a `data.frame` with 3 elements:
 #' \itemize{
 #'       \item{"admin0"}{"Admin Level 0"}
@@ -130,7 +130,7 @@ samrat_read_strata <- function(strata_file, pars_list) {
 #'   TODO: Link here to correct format for a parameter file
 #'
 #' @param surveymeta_file Name of survey meta file
-#' @param pars_list Parameter outputs from [samrat_read_params]
+#' @param pars_list Parameter outputs from [samrat_read_params()]
 #' @return Returns a data.frame with metadata on surveys available
 #'
 #' @export

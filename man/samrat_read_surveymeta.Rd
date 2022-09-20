@@ -9,7 +9,7 @@ samrat_read_surveymeta(surveymeta_file, pars_list)
 \arguments{
 \item{surveymeta_file}{Name of survey meta file}
 
-\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \code{\link[=samrat_read_params]{samrat_read_params()}}}
 }
 \value{
 Returns a data.frame with metadata on surveys available

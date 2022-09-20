@@ -9,7 +9,7 @@ samrat_read_strata(strata_file, pars_list)
 \arguments{
 \item{strata_file}{Name of strata file}
 
-\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \code{\link[=samrat_read_params]{samrat_read_params()}}}
 }
 \value{
 Returns a \code{data.frame} with 3 elements:

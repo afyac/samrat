@@ -9,7 +9,7 @@ samrat_read_predictors(predictors_file, pars_list, check = TRUE)
 \arguments{
 \item{predictors_file}{Name of predictors file}
 
-\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \code{\link[=samrat_read_params]{samrat_read_params()}}}
 
 \item{check}{Boolean for whether to check the output. Default = \code{TRUE}}
 }
