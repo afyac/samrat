@@ -147,6 +147,18 @@
 <span></span>
 <span><span class="va">pred_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_predictors.html">samrat_read_predictors</a></span><span class="op">(</span><span class="va">predictors_file</span>, <span class="va">pars_list</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="create-the-timeseries">2. Create the timeseries<a class="anchor" aria-label="anchor" href="#create-the-timeseries"></a>
+</h2>
+<p>Having read in the parameters, we can create the timeseries object that details when mortality is to be inferred for.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># create timeseries</span></span>
+<span><span class="va">tm_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_timeseries.html">samrat_timeseries</a></span><span class="op">(</span><span class="va">pars_list</span>, <span class="va">strata</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tm_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "ts"        "time_list"</span></span></code></pre></div>
+<p>This object contains the time series as <code>ts</code> and parameters detailing the start and end of analysis in <code>time_list</code>.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
