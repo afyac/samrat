@@ -72,3 +72,18 @@ predictors_file <- system.file(
 pred_list <- samrat_read_predictors(predictors_file, pars_list)
 
 ```
+
+## 2. Create the timeseries
+
+Having read in the parameters, we can create the timeseries object that details
+when mortality is to be inferred for.
+
+```{r, timeseries}
+
+# create timeseries
+tm_list <- samrat_timeseries(pars_list, strata)
+names(tm_list)
+```
+
+This object contains the time series as `ts` and parameters detailing the start
+and end of analysis in `time_list`.

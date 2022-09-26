@@ -20,7 +20,7 @@
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #' names(pars_list)
@@ -76,7 +76,7 @@ samrat_read_params <- function(param_file, check = TRUE) {
 #'   TODO: Link here to correct format for a parameter file
 #'
 #' @param strata_file Name of strata file
-#' @param pars_list Parameter outputs from [samrat_read_params]
+#' @param pars_list Parameter outputs from [samrat_read_params()]
 #' @return Returns a `data.frame` with 3 elements:
 #' \itemize{
 #'       \item{"admin0"}{"Admin Level 0"}
@@ -88,12 +88,12 @@ samrat_read_params <- function(param_file, check = TRUE) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' strata_file <- system.file(
-#' "extdata/som_analysis_strata.xlsx", package="samrat"
+#' "extdata/som_analysis_strata.xlsx", package = "samrat"
 #' )
 #' strata <- samrat_read_strata(strata_file, pars_list)
 #' names(strata)
@@ -130,19 +130,19 @@ samrat_read_strata <- function(strata_file, pars_list) {
 #'   TODO: Link here to correct format for a parameter file
 #'
 #' @param surveymeta_file Name of survey meta file
-#' @param pars_list Parameter outputs from [samrat_read_params]
+#' @param pars_list Parameter outputs from [samrat_read_params()]
 #' @return Returns a data.frame with metadata on surveys available
 #'
 #' @export
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' surveymeta_file <- system.file(
-#' "extdata/som_survey_metadata.xlsx", package="samrat"
+#' "extdata/som_survey_metadata.xlsx", package = "samrat"
 #' )
 #' strata <- samrat_read_surveymeta(surveymeta_file, pars_list)
 #'
@@ -199,12 +199,12 @@ samrat_read_surveymeta <- function(surveymeta_file, pars_list) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' demog_file <- system.file(
-#' "extdata/som_demog_data.xlsx", package="samrat"
+#' "extdata/som_demog_data.xlsx", package = "samrat"
 #' )
 #' demography_list <- samrat_read_demography(demog_file, pars_list)
 #' names(demography_list)
@@ -310,12 +310,12 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
 #' @examples {
 #'
 #' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package="samrat"
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
 #' )
 #' pars_list <- samrat_read_params(param_file)
 #'
 #' predictors_file <- system.file(
-#' "extdata/som_predictor_data.xlsx", package="samrat"
+#' "extdata/som_predictor_data.xlsx", package = "samrat"
 #' )
 #' predictors_list <- samrat_read_predictors(predictors_file, pars_list)
 #' names(predictors_list)
@@ -486,5 +486,119 @@ check_predictors_file <- function(predictors_list, pars_list, check = FALSE) {
       length(predictors_list$predictors_list) == 0) {
     stop("predictors_file predictors sheets not correctly imported/formatted")
   }
+
+}
+
+#' Create timeseries for analysis
+#'
+#' \code{samrat_timeseries} Create timeseries for analysis in samrat
+#'
+#' @description Uses parameters and strata to generate timeseries for mortality
+#'   inference.
+#'
+#' @param strata Strata output from [samrat_read_strata()]
+#' @param pars_list Parameter outputs from [samrat_read_params()]
+#' @return Returns a list of timeseries objects including:
+#' \itemize{
+#'       \item{"ts"}{"Time series `data.frame`"}
+#'       \item{"tm_list"}{"Time parameters `list`"}
+#' }
+#' @export
+#' @examples {
+#'
+#' param_file <- system.file(
+#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
+#' )
+#' pars_list <- samrat_read_params(param_file)
+#'
+#' strata_file <- system.file(
+#'   "extdata/som_analysis_strata.xlsx", package = "samrat"
+#' )
+#' strata <- samrat_read_strata(strata_file, pars_list)
+#'
+#' tm_list <- samrat_timeseries(pars_list, strata)
+#' names(tm_list)
+#'
+#' }
+samrat_timeseries <- function(pars_list, strata) {
+
+  assert_custom_class(pars_list, "samrat_params")
+  assert_custom_class(strata, "samrat_strata")
+  pl <- pars_list$pars_list
+
+  #...................................
+  ## Create a time series of stratum-time
+  ## (including burn-in/-out periods of x years before/after analysis period)
+
+  # create time unit variable tm (from month 1 to month t of analysis period T)
+  mth_t <- pl$y_analysis_end + pl$burn_out_period -
+    pl$y_analysis_start + pl$burn_in_period
+  tm <- seq(1, ((mth_t * 12) + pl$m_analysis_end - pl$m_analysis_start + 1), 1)
+
+  # create a time series of stratum-year-months
+  ts <- expand.grid(strata$stratum, tm)
+  colnames(ts) <- c("stratum", "tm")
+
+  # work out corresponding year
+  ts$y <- floor((ts[, "tm"] + pl$m_analysis_start - 2) / 12)
+  ts$y <- ts$y + pl$y_analysis_start - pl$burn_in_period
+
+  # and the month values
+  ts$m <- (ts[, "tm"] + pl$m_analysis_start - 1)
+  ts$m <- ts$m - (ts[, "y"] - pl$y_analysis_start + pl$burn_in_period) * 12
+
+  # merge admin1 back in
+  ts <- merge(
+    ts,
+    strata[, c("stratum", "admin1")], by = c("stratum"), sort = TRUE
+  )
+
+  # sort time series
+  ts <- ts[order(ts[, "stratum"], ts[, "tm"]), ]
+
+
+  #...................................
+  ## Define stratum names and time units
+  # Stratum names
+  stratum_names <- as.character(unique(strata[, "stratum"]))
+  stratum_names <- sort(stratum_names)
+
+  # Time units
+  t_units <- unique(ts[, c("tm", "m", "y")])
+
+  # Period start and end points
+  # overall period of analysis
+  tm_analysis_start <- t_units %>%
+    filter(.data$y == pl$y_analysis_start & .data$m == pl$m_analysis_start) %>%
+    pull(tm)
+  tm_analysis_end <- t_units %>%
+    filter(.data$y == pl$y_analysis_end & .data$m == pl$m_analysis_end) %>%
+    pull(tm)
+
+  # period over which excess mortality is to be estimated
+  tm_excess_start <- t_units %>%
+    filter(.data$y == pl$y_excess_start & .data$m == pl$m_excess_start) %>%
+    pull(tm)
+
+  tm_excess_end <- t_units %>%
+    filter(.data$y == pl$y_excess_end & .data$m == pl$m_excess_end) %>%
+    pull(tm)
+
+  # bring all the time pars into a list
+  time_list <- list(
+    "tm_analysis_start" = tm_analysis_start,
+    "tm_analysis_end" = tm_analysis_end,
+    "tm_excess_start" = tm_excess_start,
+    "tm_excess_end" = tm_excess_end
+  )
+
+  #...................................
+  ## and list to return
+  tm_list <- list(
+    "ts" = ts,
+    "time_list" = time_list
+  )
+  class(tm_list) <- c(class(tm_list), "samrat_params")
+  return(tm_list)
 
 }

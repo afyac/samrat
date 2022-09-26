@@ -31,7 +31,7 @@ TODO: Link here to correct format for a parameter file
 {
 
 param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package="samrat"
+"extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 pars_list <- samrat_read_params(param_file)
 names(pars_list)

@@ -12,6 +12,11 @@ reference:
       - samrat_read_demography
       - samrat_read_predictors
 
+  - title: "Timeseries"
+    desc: "Functions for creating and interacting with timeseries"
+    contents:
+      - samrat_timeseries
+
   - title: "Modelling Functions"
     desc: >
       "Series of internal and external functions used for modelling

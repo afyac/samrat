@@ -9,7 +9,7 @@ samrat_read_strata(strata_file, pars_list)
 \arguments{
 \item{strata_file}{Name of strata file}
 
-\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \code{\link[=samrat_read_params]{samrat_read_params()}}}
 }
 \value{
 Returns a \code{data.frame} with 3 elements:
@@ -30,12 +30,12 @@ TODO: Link here to correct format for a parameter file
 {
 
 param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package="samrat"
+"extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 pars_list <- samrat_read_params(param_file)
 
 strata_file <- system.file(
-"extdata/som_analysis_strata.xlsx", package="samrat"
+"extdata/som_analysis_strata.xlsx", package = "samrat"
 )
 strata <- samrat_read_strata(strata_file, pars_list)
 names(strata)

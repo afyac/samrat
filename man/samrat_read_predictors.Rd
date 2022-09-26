@@ -9,7 +9,7 @@ samrat_read_predictors(predictors_file, pars_list, check = TRUE)
 \arguments{
 \item{predictors_file}{Name of predictors file}
 
-\item{pars_list}{Parameter outputs from \link{samrat_read_params}}
+\item{pars_list}{Parameter outputs from \code{\link[=samrat_read_params]{samrat_read_params()}}}
 
 \item{check}{Boolean for whether to check the output. Default = \code{TRUE}}
 }
@@ -32,12 +32,12 @@ TODO: Link here to correct format for a predictors file
 {
 
 param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package="samrat"
+"extdata/som_analysis_parameters.xlsx", package = "samrat"
 )
 pars_list <- samrat_read_params(param_file)
 
 predictors_file <- system.file(
-"extdata/som_predictor_data.xlsx", package="samrat"
+"extdata/som_predictor_data.xlsx", package = "samrat"
 )
 predictors_list <- samrat_read_predictors(predictors_file, pars_list)
 names(predictors_list)
