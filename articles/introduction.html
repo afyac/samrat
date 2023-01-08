@@ -72,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/OJWatson/samrat" class="external-link">
+  <a href="https://github.com/afyac/samrat" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -105,7 +105,9 @@
 <div class="section level2">
 <h2 id="reading-in-our-parameters">1. Reading in our parameters<a class="anchor" aria-label="anchor" href="#reading-in-our-parameters"></a>
 </h2>
-<p>We start by reading in our parameter file that controls most of our modelling. Please see <a href="https://ojwatson.github.io/samrat/articles/parameters.html" class="external-link">Parameters Vignette</a> for how to set up and format the parameters .xlsx file.</p>
+<p>We start by reading in our parameter file that controls most of our
+modelling. Please see <a href="https://afyac.github.io/samrat/articles/parameters.html" class="external-link">Parameters
+Vignette</a> for how to set up and format the parameters .xlsx file.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">param_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/som_analysis_parameters.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
@@ -114,7 +116,8 @@
 <span><span class="va">pars_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_params.html">samrat_read_params</a></span><span class="op">(</span><span class="va">param_file</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pars_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "pars_list" "gen_pars"  "var_pars"  "cf_pars"</span></span></code></pre></div>
-<p>We then use this object when reading in our strata and survey metadata:</p>
+<p>We then use this object when reading in our strata and survey
+metadata:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># read in the strata params</span></span>
 <span><span class="va">strata_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
@@ -150,14 +153,17 @@
 <div class="section level2">
 <h2 id="create-the-timeseries">2. Create the timeseries<a class="anchor" aria-label="anchor" href="#create-the-timeseries"></a>
 </h2>
-<p>Having read in the parameters, we can create the timeseries object that details when mortality is to be inferred for.</p>
+<p>Having read in the parameters, we can create the timeseries object
+that details when mortality is to be inferred for.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># create timeseries</span></span>
 <span><span class="va">tm_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_timeseries.html">samrat_timeseries</a></span><span class="op">(</span><span class="va">pars_list</span>, <span class="va">strata</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tm_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ts"        "time_list"</span></span></code></pre></div>
-<p>This object contains the time series as <code>ts</code> and parameters detailing the start and end of analysis in <code>time_list</code>.</p>
+<p>This object contains the time series as <code>ts</code> and
+parameters detailing the start and end of analysis in
+<code>time_list</code>.</p>
 </div>
   </div>
 
@@ -178,7 +184,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/OJWatson/samrat" class="external-link">
+  <a href="https://github.com/afyac/samrat" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -103,7 +103,9 @@
 <div class="section level2">
 <h2 id="structure">Structure<a class="anchor" aria-label="anchor" href="#structure"></a>
 </h2>
-<p>This is an overall structure of the <code>samrat</code> package, which details how the different analysis elements (parameters, analysis, plotting etc) are functionally related.</p>
+<p>This is an overall structure of the <code>samrat</code> package,
+which details how the different analysis elements (parameters, analysis,
+plotting etc) are functionally related.</p>
 <p>The package structure is shown below:</p>
 <div class="figure">
 <img src="imgs/structure.png" alt=""><p class="caption">Samrat Structure</p>
@@ -112,20 +114,48 @@
 <div class="section level2">
 <h2 id="directory-concepts">Directory concepts<a class="anchor" aria-label="anchor" href="#directory-concepts"></a>
 </h2>
-<p>For each analysis, we will try to keep to a one directory per analysis structure, which will include:</p>
+<p>For each analysis, we will try to keep to a one directory per
+analysis structure, which will include:</p>
 <ul>
 <li>Input parameter files (xlsx, csv, rds)</li>
 <li>Survey dataset directory</li>
 </ul>
-<p>In this directory, the output of analysis will be stored in <code>output</code>.</p>
-<p>This setup can then be linked with suitable reproducibility pipelines later on (cf <a href="https://github.com/vimc/orderly" class="external-link">orderly</a>).</p>
+<p>In this directory, the output of analysis will be stored in
+<code>output</code>.</p>
+<p>This setup can then be linked with suitable reproducibility pipelines
+later on (cf <a href="https://github.com/vimc/orderly" class="external-link">orderly</a>).</p>
 </div>
 <div class="section level2">
 <h2 id="conversion-from-mortality_small_area_estimation-repo">Conversion from mortality_small_area_estimation repo<a class="anchor" aria-label="anchor" href="#conversion-from-mortality_small_area_estimation-repo"></a>
 </h2>
-<p>In the <a href="mortality_small_area_estimation">originating repository</a> the use of global variables was quite extensive and made tracking where variables originated from hard, with many variables being assigned using <code>get</code> and <code>assign</code> calls by reference to <code>data.frames</code> that listed the names of the variables. This made it quite hard to identify where the variable originated from and when errors appear make debugging almost impossible. In response, we choose to create names <code>lists</code> of variables and data sources. These are bundled within a <code>list</code>, in which the <code>data.frames</code> used to create these named <code>lists</code> are also included with the same name as in the original repo.</p>
-<p>For example, previously we had a predictors xlsx file. This had a <code>predictors_table</code> sheet that described each of the data sets that were being imported from the other sheets as well as a dictionary sheet with more information. From this, the <code>predictors_table</code> sheet would be read in as <code>predictors</code> in the form of a <code>data.frame</code>. From this the actual predictor data sets would be read in and assigned to variable names determined from <code>predictors</code>.</p>
-<p>Instead, we now opt for the <code>predictors</code> <code>data.frame</code> and the <code>dictionary</code> <code>data.frame</code> to be named list elements within <code>predictors_list</code> - this is a list object that also has a <code>predictors_list</code> named element that is a named <code>list</code> of <code>data.frames</code> for the actual predictor data sets. This way when referring to these, we know where they came from.</p>
+<p>In the <a href="mortality_small_area_estimation">originating
+repository</a> the use of global variables was quite extensive and made
+tracking where variables originated from hard, with many variables being
+assigned using <code>get</code> and <code>assign</code> calls by
+reference to <code>data.frames</code> that listed the names of the
+variables. This made it quite hard to identify where the variable
+originated from and when errors appear make debugging almost impossible.
+In response, we choose to create names <code>lists</code> of variables
+and data sources. These are bundled within a <code>list</code>, in which
+the <code>data.frames</code> used to create these named
+<code>lists</code> are also included with the same name as in the
+original repo.</p>
+<p>For example, previously we had a predictors xlsx file. This had a
+<code>predictors_table</code> sheet that described each of the data sets
+that were being imported from the other sheets as well as a dictionary
+sheet with more information. From this, the
+<code>predictors_table</code> sheet would be read in as
+<code>predictors</code> in the form of a <code>data.frame</code>. From
+this the actual predictor data sets would be read in and assigned to
+variable names determined from <code>predictors</code>.</p>
+<p>Instead, we now opt for the <code>predictors</code>
+<code>data.frame</code> and the <code>dictionary</code>
+<code>data.frame</code> to be named list elements within
+<code>predictors_list</code> - this is a list object that also has a
+<code>predictors_list</code> named element that is a named
+<code>list</code> of <code>data.frames</code> for the actual predictor
+data sets. This way when referring to these, we know where they came
+from.</p>
 </div>
   </div>
 
@@ -146,7 +176,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
