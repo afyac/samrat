@@ -21,7 +21,7 @@ library(samrat)
 ## 1. Reading in our parameters
 
 We start by reading in our parameter file that controls most of our modelling.
-Please see [Parameters Vignette](https://ojwatson.github.io/samrat/articles/parameters.html)
+Please see [Parameters Vignette](https://afyac.github.io/samrat/articles/parameters.html)
 for how to set up and format the parameters .xlsx file. 
 
 ```{r, parameters}
