@@ -13,6 +13,14 @@ status](https://github.com/afyac/samrat/workflows/R-CMD-check/badge.svg)](https:
 
 To install `samrat`:
 
+## Notes
+
+This R package will eventually become an R package aimed at replicating
+the analysis
+[here](https://github.com/francescochecchi/mortality_small_area_estimation),
+with support from other packages within `afyac` organisation that are
+focussed on mortality analysis <https://github.com/afyac/welcome>.
+
 ``` r
 remotes::install_github("afyac/samrat", upgrade = FALSE)
 ```
