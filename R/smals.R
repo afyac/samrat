@@ -6,7 +6,6 @@
 #' @keywords internal
 
 f_liv <- function(liv_term, liv_ss) {
-
   # Livelihood
   if (grepl(paste(liv_ss$livelihood, collapse = "|"), liv_term)) {
     return(paste(names(livelihood_substrings)[1]))
@@ -19,7 +18,7 @@ f_liv <- function(liv_term, liv_ss) {
 
   # Pastoralists (slightly different to avoid confusion with agropastoralists)
   if (grepl(paste(liv_ss$pastoralists, collapse = "|"), liv_term) &&
-      !grepl(paste(liv_ss$agropastoralists, collapse = "|"), liv_term)) {
+    !grepl(paste(liv_ss$agropastoralists, collapse = "|"), liv_term)) {
     return(paste(names(livelihood_substrings)[3]))
   }
 
@@ -57,5 +56,4 @@ f_liv <- function(liv_term, liv_ss) {
   if (!grepl(paste(unlist(liv_ss), collapse = "|"), liv_term)) {
     return(NA)
   }
-
 }

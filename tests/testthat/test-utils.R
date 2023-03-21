@@ -9,7 +9,6 @@ test_that("null-or-value works", {
 
 
 test_that("read_samrat_file", {
-
   # check these idential reads works
   ch1 <- read_samrat_file("som_idp_prmn_counterfactuals.csv")
   ch2 <- read_samrat_file("som_idp_prmn_counterfactuals.rds")
@@ -26,7 +25,6 @@ test_that("read_samrat_file", {
 
   expect_error(read_samrat_file("test.csv"))
   expect_error(read_samrat_file("test.test"), "file extension")
-
 })
 
 test_that("samrat quiet messaging", {

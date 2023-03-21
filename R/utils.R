@@ -19,7 +19,6 @@
 #' @keywords internal
 
 read_samrat_file <- function(name, sheet = NULL) {
-
   # check that valid file extension
   ext <- strsplit(name, "\\.")[[1]]
   ext <- ext[length(ext)]
@@ -40,7 +39,6 @@ read_samrat_file <- function(name, sheet = NULL) {
   }
 
   return(ret)
-
 }
 
 
@@ -59,7 +57,6 @@ read_samrat_file <- function(name, sheet = NULL) {
 #' @keywords internal
 
 par_list_from_df <- function(pars, value = "value", parameter = "parameter") {
-
   # turn this into a suitable list of our parameters
   pars_list <- split(pars[[value]], pars[[parameter]])
   for (i in seq_along(pars_list)) {
@@ -69,15 +66,12 @@ par_list_from_df <- function(pars, value = "value", parameter = "parameter") {
   }
 
   return(pars_list)
-
 }
 
 #' @noRd
 #' @keywords internal
 quiet_message <- function(msg) {
-
   if (Sys.getenv("SAMRAT_LOUD") == "TRUE") {
     message(msg)
   }
-
 }

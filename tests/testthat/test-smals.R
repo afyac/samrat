@@ -1,7 +1,6 @@
 context("smals")
 
 test_that("f_liv works", {
-
   lv_terms <- lapply(livelihood_substrings, "[[", 1)
 
   expect_equal(f_liv(lv_terms[[1]], livelihood_substrings), names(lv_terms)[1])
@@ -14,5 +13,4 @@ test_that("f_liv works", {
   expect_equal(f_liv(lv_terms[[8]], livelihood_substrings), names(lv_terms)[8])
   expect_equal(f_liv(lv_terms[[9]], livelihood_substrings), names(lv_terms)[9])
   expect_equal(f_liv("zxc", livelihood_substrings), NA)
-
 })

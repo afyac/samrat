@@ -265,7 +265,6 @@ test_that("assert_date working correctly", {
   expect_error(assert_date(NULL))
   expect_error(assert_date(5))
   expect_error(assert_date("jibebers"))
-
 })
 
 

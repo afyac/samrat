@@ -1,5 +1,3 @@
-
-
 #### HELPER FUNCTIONS ##########################################################
 
 #------------------------------------------------
@@ -331,7 +329,6 @@ assert_date <- function(x,
       stop(sprintf(message, name), call. = FALSE)
     }
   }
-
 }
 
 
@@ -482,7 +479,8 @@ assert_bounded <-
     if (inclusive_left) {
       if (!all(x >= left)) {
         stop(sprintf("%s must be greater than or equal to %s", name, left),
-             call. = FALSE)
+          call. = FALSE
+        )
       }
     } else {
       if (!all(x > left)) {
@@ -492,7 +490,8 @@ assert_bounded <-
     if (inclusive_right) {
       if (!all(x <= right)) {
         stop(sprintf("%s must be less than or equal to %s", name, right),
-             call. = FALSE)
+          call. = FALSE
+        )
       }
     } else {
       if (!all(x < right)) {
@@ -558,7 +557,7 @@ assert_length <-
 assert_same_length <-
   function(x,
            y,
-           message =  "%s and %s must be the same length",
+           message = "%s and %s must be the same length",
            name_x = deparse(substitute(x)),
            name_y = deparse(substitute(y))) {
     if (length(x) != length(y)) {
@@ -575,7 +574,8 @@ assert_same_length_multiple <- function(...) {
   if (length(unique(l)) != 1) {
     l_names <- sapply(match.call(expand.dots = FALSE)$..., deparse)
     stop(sprintf("variables %s must be the same length", nice_format(l_names)),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
   return(TRUE)
 }
