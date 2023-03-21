@@ -110,7 +110,8 @@ modelling. Please see <a href="https://afyac.github.io/samrat/articles/parameter
 Vignette</a> for how to set up and format the parameters .xlsx file.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">param_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata/som_analysis_parameters.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
+<span>  <span class="st">"extdata/som_analysis_parameters.xlsx"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"samrat"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pars_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_params.html">samrat_read_params</a></span><span class="op">(</span><span class="va">param_file</span><span class="op">)</span></span>
@@ -121,20 +122,23 @@ metadata:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># read in the strata params</span></span>
 <span><span class="va">strata_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata/som_analysis_strata.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
+<span>  <span class="st">"extdata/som_analysis_strata.xlsx"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"samrat"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">strata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_strata.html">samrat_read_strata</a></span><span class="op">(</span><span class="va">strata_file</span>, <span class="va">pars_list</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># read in the survey meta params</span></span>
 <span><span class="va">surveymeta_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata/som_survey_metadata.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
+<span>  <span class="st">"extdata/som_survey_metadata.xlsx"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"samrat"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_surveymeta.html">samrat_read_surveymeta</a></span><span class="op">(</span><span class="va">surveymeta_file</span>, <span class="va">pars_list</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly when reading in our demography files:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># read in the demog params</span></span>
 <span><span class="va">demog_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata/som_demog_data.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
+<span>  <span class="st">"extdata/som_demog_data.xlsx"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"samrat"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">demog_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_demography.html">samrat_read_demography</a></span><span class="op">(</span><span class="va">demog_file</span>, <span class="va">pars_list</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">demog_list</span><span class="op">)</span></span>
@@ -142,10 +146,10 @@ metadata:</p>
 <span><span class="co">#&gt; [5] "dictionary"</span></span></code></pre></div>
 <p>And lastly when reading in our predictor files:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># read in the predictor params</span></span>
+<code class="sourceCode R"><span><span class="co"># read in the predictor params</span></span>
 <span><span class="va">predictors_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"extdata/som_predictor_data.xlsx"</span>, package <span class="op">=</span> <span class="st">"samrat"</span></span>
+<span>  <span class="st">"extdata/som_predictor_data.xlsx"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"samrat"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pred_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_read_predictors.html">samrat_read_predictors</a></span><span class="op">(</span><span class="va">predictors_file</span>, <span class="va">pars_list</span><span class="op">)</span></span></code></pre></div>
@@ -156,8 +160,7 @@ metadata:</p>
 <p>Having read in the parameters, we can create the timeseries object
 that details when mortality is to be inferred for.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># create timeseries</span></span>
+<code class="sourceCode R"><span><span class="co"># create timeseries</span></span>
 <span><span class="va">tm_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/samrat_timeseries.html">samrat_timeseries</a></span><span class="op">(</span><span class="va">pars_list</span>, <span class="va">strata</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tm_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "ts"        "time_list"</span></span></code></pre></div>
