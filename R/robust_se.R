@@ -28,6 +28,8 @@
 #' @importFrom stats diag pnorm round
 #' @importFrom stats exp coef
 #' @importFrom base ifelse
+#' @importFrom sandwich vcovHC
+#' @importFrom data mtcars
 #' @export
 
 

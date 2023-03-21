@@ -2,13 +2,6 @@ context("Test robust_se function")
 
 # Dependencies and model set up -------------------------------------------
 
-library(testthat)
-library(lmtest)
-library(sandwich)
-
-# Load the required data
-data(mtcars)
-
 # Build model
 model_fit <- lm(mpg ~ cyl + disp, data = mtcars)
 

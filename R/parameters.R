@@ -18,38 +18,36 @@
 #'
 #' @export
 #' @examples {
-#'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
-#' names(pars_list)
-#'
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
+#'   names(pars_list)
 #' }
 samrat_read_params <- function(param_file, check = TRUE) {
-
   # check file is suitable name and exists
   assert_string(param_file)
   assert_file_exists(param_file)
 
-  #...................................
+  # ...................................
   ## General parameters
   gen_pars <- readxl::read_excel(param_file, sheet = "general_parameters")
 
   # turn this into a suitable list of our parameters
   gen_pars_list <- par_list_from_df(gen_pars)
 
-  #...................................
+  # ...................................
   ## Predictor-specific parameters
   var_pars <- readxl::read_excel(param_file, sheet = "predictor_parameters")
   var_pars <- as.data.frame(var_pars)
 
-  #...................................
+  # ...................................
   ## Counterfactual parameters
   cf_pars <- readxl::read_excel(param_file, sheet = "counterfactual_parameters")
   cf_pars <- as.data.frame(cf_pars)
 
-  #...................................
+  # ...................................
   ## TODO: Should this be read in here: Probably no
   # Sensitivity analysis parameters
 
@@ -65,7 +63,6 @@ samrat_read_params <- function(param_file, check = TRUE) {
   # Run checks before returning
   if (check) check_param_file(pars_list)
   return(pars_list)
-
 }
 
 #' Read samrat strata parameters
@@ -86,27 +83,26 @@ samrat_read_params <- function(param_file, check = TRUE) {
 #'
 #' @export
 #' @examples {
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
 #'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
-#'
-#' strata_file <- system.file(
-#' "extdata/som_analysis_strata.xlsx", package = "samrat"
-#' )
-#' strata <- samrat_read_strata(strata_file, pars_list)
-#' names(strata)
-#'
+#'   strata_file <- system.file(
+#'     "extdata/som_analysis_strata.xlsx",
+#'     package = "samrat"
+#'   )
+#'   strata <- samrat_read_strata(strata_file, pars_list)
+#'   names(strata)
 #' }
 samrat_read_strata <- function(strata_file, pars_list) {
-
   assert_string(strata_file)
   assert_file_exists(strata_file)
   assert_custom_class(pars_list, "samrat_params")
   pl <- pars_list
 
-  #...................................
+  # ...................................
   ## Analysis strata
   strata <- readxl::read_excel(strata_file, sheet = "strata")
   strata <- as.data.frame(strata)
@@ -119,7 +115,6 @@ samrat_read_strata <- function(strata_file, pars_list) {
 
   class(strata) <- c(class(strata), "samrat_strata")
   return(strata)
-
 }
 
 #' Read samrat survey metadata
@@ -135,26 +130,25 @@ samrat_read_strata <- function(strata_file, pars_list) {
 #'
 #' @export
 #' @examples {
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
 #'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
-#'
-#' surveymeta_file <- system.file(
-#' "extdata/som_survey_metadata.xlsx", package = "samrat"
-#' )
-#' strata <- samrat_read_surveymeta(surveymeta_file, pars_list)
-#'
+#'   surveymeta_file <- system.file(
+#'     "extdata/som_survey_metadata.xlsx",
+#'     package = "samrat"
+#'   )
+#'   strata <- samrat_read_surveymeta(surveymeta_file, pars_list)
 #' }
 samrat_read_surveymeta <- function(surveymeta_file, pars_list) {
-
   assert_string(surveymeta_file)
   assert_file_exists(surveymeta_file)
   assert_custom_class(pars_list, "samrat_params")
   pl <- pars_list
 
-  #...................................
+  # ...................................
   ## Analysis strata
   smeta <- readxl::read_excel(surveymeta_file, sheet = "survey_metadata")
   smeta <- as.data.frame(smeta)
@@ -170,7 +164,6 @@ samrat_read_surveymeta <- function(surveymeta_file, pars_list) {
   # Give class for later checks
   class(smeta) <- c(class(smeta), "samrat_surveymeta")
   return(smeta)
-
 }
 
 #' Read samrat demographic data
@@ -197,34 +190,33 @@ samrat_read_surveymeta <- function(surveymeta_file, pars_list) {
 #' @importFrom dplyr filter pull
 #' @importFrom rlang .data
 #' @examples {
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
 #'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
-#'
-#' demog_file <- system.file(
-#' "extdata/som_demog_data.xlsx", package = "samrat"
-#' )
-#' demography_list <- samrat_read_demography(demog_file, pars_list)
-#' names(demography_list)
-#'
+#'   demog_file <- system.file(
+#'     "extdata/som_demog_data.xlsx",
+#'     package = "samrat"
+#'   )
+#'   demography_list <- samrat_read_demography(demog_file, pars_list)
+#'   names(demography_list)
 #' }
 samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
-
   assert_string(demog_file)
   assert_file_exists(demog_file)
   assert_custom_class(pars_list, "samrat_params")
   pl <- pars_list
 
-  #...................................
+  # ...................................
   ## Demog pars
   demog_pars <- readxl::read_excel(demog_file, sheet = "demog_pars")
 
   # turn this into a suitable list of our parameters
   demog_pars_list <- par_list_from_df(demog_pars)
 
-  #...................................
+  # ...................................
   ## Population Data Sources
   pop_sources <- readxl::read_excel(demog_file, sheet = "data_table")
   pop_sources <- as.data.frame(pop_sources)
@@ -232,7 +224,7 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
   # exclude any datasets that are not going to be used for analysis
   pop_sources <- pop_sources %>% filter(.data$used_in_analysis == "Y")
 
-  #...................................
+  # ...................................
   ## Dictionary variables needed to identify what variables are to be subset
   dictionary <- readxl::read_excel(demog_file, sheet = "dictionary")
   dictionary <- as.data.frame(dictionary)
@@ -241,8 +233,7 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
   # then read all of the population data sources and bring into list
   pop_sources_list <- vector("list", nrow(pop_sources))
   names(pop_sources_list) <- pop_sources$worksheet
-  for (i in seq_len(nrow(pop_sources)))  {
-
+  for (i in seq_len(nrow(pop_sources))) {
     # what sheet are we reading in
     x1 <- paste(pop_sources$worksheet[i])
 
@@ -283,7 +274,6 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
   # Run checks before returning
   if (check) check_demog_file(demography_list, pars_list)
   return(demography_list)
-
 }
 
 #' Read samrat predictor data
@@ -308,34 +298,34 @@ samrat_read_demography <- function(demog_file, pars_list, check = TRUE) {
 #' @importFrom dplyr filter pull
 #' @importFrom rlang .data
 #' @examples {
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
 #'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
-#'
-#' predictors_file <- system.file(
-#' "extdata/som_predictor_data.xlsx", package = "samrat"
-#' )
-#' predictors_list <- samrat_read_predictors(predictors_file, pars_list)
-#' names(predictors_list)
-#'
+#'   predictors_file <- system.file(
+#'     "extdata/som_predictor_data.xlsx",
+#'     package = "samrat"
+#'   )
+#'   predictors_list <- samrat_read_predictors(predictors_file, pars_list)
+#'   names(predictors_list)
 #' }
 samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
-
   assert_string(predictors_file)
   assert_file_exists(predictors_file)
   assert_custom_class(pars_list, "samrat_params")
   pl <- pars_list
 
-  #...................................
+  # ...................................
   ## Manual Imputations
   manual_imputations <- readxl::read_excel(
-    predictors_file, sheet = "manual_imputations"
+    predictors_file,
+    sheet = "manual_imputations"
   )
   manual_imputations <- as.data.frame(manual_imputations)
 
-  #...................................
+  # ...................................
   ## Predictor Data Sources
   predictors <- readxl::read_excel(predictors_file, sheet = "predictors_table")
   predictors <- as.data.frame(predictors)
@@ -343,7 +333,7 @@ samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
   # exclude any datasets that are not going to be used for analysis
   predictors <- predictors %>% filter(.data$used_in_analysis == "Y")
 
-  #...................................
+  # ...................................
   ## Dictionary variables needed to identify what variables are to be subset
   dictionary <- readxl::read_excel(predictors_file, sheet = "dictionary")
   dictionary <- as.data.frame(dictionary)
@@ -352,8 +342,7 @@ samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
   # then read all of the population data sources and bring into list
   predictors_list <- vector("list", nrow(predictors))
   names(predictors_list) <- predictors$worksheet
-  for (i in seq_len(nrow(predictors)))  {
-
+  for (i in seq_len(nrow(predictors))) {
     # what sheet are we reading in
     x1 <- paste(predictors$worksheet[i])
 
@@ -393,7 +382,6 @@ samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
   # Run checks before returning
   if (check) check_predictors_file(predictors_list, pars_list)
   return(predictors_list)
-
 }
 
 #' check_param_file
@@ -405,10 +393,10 @@ samrat_read_predictors <- function(predictors_file, pars_list, check = TRUE) {
 #' @keywords internal
 
 check_param_file <- function(pars_list) {
-
   # read in the example params from the package
   param_file <- system.file(
-    "extdata/som_analysis_parameters.xlsx", package = "samrat"
+    "extdata/som_analysis_parameters.xlsx",
+    package = "samrat"
   )
   ex <- samrat_read_params(param_file, check = FALSE)
 
@@ -426,7 +414,6 @@ check_param_file <- function(pars_list) {
   if (!all(names(ex$cf_pars) %in% names(pars_list$cf_pars))) {
     stop("param_file counterfactual_parameters sheet is missing variables")
   }
-
 }
 
 
@@ -439,10 +426,10 @@ check_param_file <- function(pars_list) {
 #' @keywords internal
 
 check_demog_file <- function(demog_list, pars_list, check = FALSE) {
-
   # read in the example params from the package
   param_file <- system.file(
-    "extdata/som_demog_data.xlsx", package = "samrat"
+    "extdata/som_demog_data.xlsx",
+    package = "samrat"
   )
   ex <- samrat_read_demography(param_file, pars_list, check)
 
@@ -453,10 +440,9 @@ check_demog_file <- function(demog_list, pars_list, check = FALSE) {
 
   # simple check that the class is the same for one of the list elements
   if (class(ex$pop_sources_list) != class(demog_list$pop_sources_list) ||
-      length(demog_list$pop_sources_list) == 0) {
+    length(demog_list$pop_sources_list) == 0) {
     stop("demog_file pop_sources sheets not correctly imported/formatted")
   }
-
 }
 
 
@@ -469,10 +455,10 @@ check_demog_file <- function(demog_list, pars_list, check = FALSE) {
 #' @keywords internal
 
 check_predictors_file <- function(predictors_list, pars_list, check = FALSE) {
-
   # read in the example params from the package
   param_file <- system.file(
-    "extdata/som_predictor_data.xlsx", package = "samrat"
+    "extdata/som_predictor_data.xlsx",
+    package = "samrat"
   )
   ex <- samrat_read_predictors(param_file, pars_list, check)
 
@@ -483,10 +469,9 @@ check_predictors_file <- function(predictors_list, pars_list, check = FALSE) {
 
   # simple check that the class is the same for one of the list elements
   if (class(ex$predictors_list) != class(predictors_list$predictors_list) ||
-      length(predictors_list$predictors_list) == 0) {
+    length(predictors_list$predictors_list) == 0) {
     stop("predictors_file predictors sheets not correctly imported/formatted")
   }
-
 }
 
 #' Create timeseries for analysis
@@ -505,28 +490,27 @@ check_predictors_file <- function(predictors_list, pars_list, check = FALSE) {
 #' }
 #' @export
 #' @examples {
+#'   param_file <- system.file(
+#'     "extdata/som_analysis_parameters.xlsx",
+#'     package = "samrat"
+#'   )
+#'   pars_list <- samrat_read_params(param_file)
 #'
-#' param_file <- system.file(
-#' "extdata/som_analysis_parameters.xlsx", package = "samrat"
-#' )
-#' pars_list <- samrat_read_params(param_file)
+#'   strata_file <- system.file(
+#'     "extdata/som_analysis_strata.xlsx",
+#'     package = "samrat"
+#'   )
+#'   strata <- samrat_read_strata(strata_file, pars_list)
 #'
-#' strata_file <- system.file(
-#'   "extdata/som_analysis_strata.xlsx", package = "samrat"
-#' )
-#' strata <- samrat_read_strata(strata_file, pars_list)
-#'
-#' tm_list <- samrat_timeseries(pars_list, strata)
-#' names(tm_list)
-#'
+#'   tm_list <- samrat_timeseries(pars_list, strata)
+#'   names(tm_list)
 #' }
 samrat_timeseries <- function(pars_list, strata) {
-
   assert_custom_class(pars_list, "samrat_params")
   assert_custom_class(strata, "samrat_strata")
   pl <- pars_list$pars_list
 
-  #...................................
+  # ...................................
   ## Create a time series of stratum-time
   ## (including burn-in/-out periods of x years before/after analysis period)
 
@@ -550,14 +534,15 @@ samrat_timeseries <- function(pars_list, strata) {
   # merge admin1 back in
   ts <- merge(
     ts,
-    strata[, c("stratum", "admin1")], by = c("stratum"), sort = TRUE
+    strata[, c("stratum", "admin1")],
+    by = c("stratum"), sort = TRUE
   )
 
   # sort time series
   ts <- ts[order(ts[, "stratum"], ts[, "tm"]), ]
 
 
-  #...................................
+  # ...................................
   ## Define stratum names and time units
   # Stratum names
   stratum_names <- as.character(unique(strata[, "stratum"]))
@@ -592,7 +577,7 @@ samrat_timeseries <- function(pars_list, strata) {
     "tm_excess_end" = tm_excess_end
   )
 
-  #...................................
+  # ...................................
   ## and list to return
   tm_list <- list(
     "ts" = ts,
@@ -600,5 +585,4 @@ samrat_timeseries <- function(pars_list, strata) {
   )
   class(tm_list) <- c(class(tm_list), "samrat_params")
   return(tm_list)
-
 }
