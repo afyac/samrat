@@ -26,12 +26,12 @@
 #' # Estimate robust standard errors
 #' robust_se(model_fit, varcov, scale = "linear")
 #' @importFrom stats diag pnorm round
-#' @importFrom stats exp coef
+#' @importFrom stats exp coef pnorm
 #' @importFrom base ifelse
 #' @importFrom sandwich vcovHC
+#' @importFrom dplyr rename
 #' @importFrom data mtcars
 #' @export
-
 
 robust_se <- function(model_fit, varcov, scale) {
   # Check for negative variances
