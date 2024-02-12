@@ -29,12 +29,11 @@ TODO: Link here to correct format for a parameter file
 }
 \examples{
 {
-
-param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package = "samrat"
-)
-pars_list <- samrat_read_params(param_file)
-names(pars_list)
-
+  param_file <- system.file(
+    "extdata/som_analysis_parameters.xlsx",
+    package = "samrat"
+  )
+  pars_list <- samrat_read_params(param_file)
+  names(pars_list)
 }
 }

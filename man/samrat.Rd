@@ -2,8 +2,8 @@
 % Please edit documentation in R/samrat.R
 \docType{package}
 \name{samrat}
-\alias{samrat}
 \alias{samrat-package}
+\alias{samrat}
 \title{\pkg{samrat} Small-area mortality analytics}
 \description{
 Package for conducting small-area estimation of

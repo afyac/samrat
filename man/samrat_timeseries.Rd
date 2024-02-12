@@ -27,19 +27,19 @@ inference.
 }
 \examples{
 {
+  param_file <- system.file(
+    "extdata/som_analysis_parameters.xlsx",
+    package = "samrat"
+  )
+  pars_list <- samrat_read_params(param_file)
 
-param_file <- system.file(
-"extdata/som_analysis_parameters.xlsx", package = "samrat"
-)
-pars_list <- samrat_read_params(param_file)
+  strata_file <- system.file(
+    "extdata/som_analysis_strata.xlsx",
+    package = "samrat"
+  )
+  strata <- samrat_read_strata(strata_file, pars_list)
 
-strata_file <- system.file(
-  "extdata/som_analysis_strata.xlsx", package = "samrat"
-)
-strata <- samrat_read_strata(strata_file, pars_list)
-
-tm_list <- samrat_timeseries(pars_list, strata)
-names(tm_list)
-
+  tm_list <- samrat_timeseries(pars_list, strata)
+  names(tm_list)
 }
 }
