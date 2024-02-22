@@ -28,7 +28,7 @@ f_counterfactuals <- function(boostrapping_results, resp_var,
 
   ##First Calculate the median (counterfactual) of the non_crisis period (or period 1)
   median_c <- boostrapping_results |>
-    dplyr::group_by(!!admin2_col) |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(c(admin2_col)))) |>
     dplyr::filter(date >= start_date_per_1 & date <= end_date_per_1) |>
     dplyr::mutate(median_c = mean(exp(pred))) |>
     dplyr::select(median_c, district) |>

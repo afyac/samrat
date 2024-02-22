@@ -2,9 +2,11 @@
 
 export("%>%")
 export(f_calculate_folds)
+export(f_cdr_map)
 export(f_clean_actual_table)
 export(f_clean_counterfactuals_table)
 export(f_counterfactuals)
+export(f_country_dr_plot)
 export(f_cv)
 export(f_cv_plot)
 export(f_define_annot_value)

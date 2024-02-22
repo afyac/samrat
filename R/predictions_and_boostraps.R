@@ -54,7 +54,7 @@ f_pred_glm <- function(training_data, predicting_data,
 
   #Boostrap pred
   # Be careful of the order -- as we need to have the same between res_pop and predicting data
-  predicting_data <- predicting_data[order(predicting_data$district), ]
+  predicting_data <- predicting_data[order(predicting_data[,admin2_col]), ]
   predicting_data <- predicting_data[order(predicting_data$date), ]
 
   #Without CI population
