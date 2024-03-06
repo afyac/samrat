@@ -123,8 +123,9 @@ f_generate_final_results <- function(boostrapping_results, agg_level, nb_boostra
 
   ## Calculate mean, q1 and q3 of the boostrapping on the actual matrix results
   D_a <- data.frame(t(apply(D_a[, c(paste('X', seq(1:nb_boostrap), sep=""))], 1,
-                            FUN = function(x) {return(c(mean(x), quantile(x, c(0.025, 0.975))))} )))
-  colnames(D_a) <-c('mean', 'q1', 'q3')
+                            FUN = function(x) {return(c(mean(x),
+                                                        quantile(x, c(0.025, 0.25, 0.75, 0.975))))} )))
+  colnames(D_a) <-c('mean', 'q1', 'q25', 'q75', 'q3')
   D_a[, agg_level] <- pred_agg_region_ptime[, agg_level]
 
   # Calculate the dr rate
@@ -132,15 +133,21 @@ f_generate_final_results <- function(boostrapping_results, agg_level, nb_boostra
   colnames(D_a_dr) <- agg_level
   D_a_dr$mean <- D_a$mean *10000/ pred_agg_region_ptime[, p_time_var]
   D_a_dr$q1 <- D_a$q1 *10000/ pred_agg_region_ptime[, p_time_var]
+  D_a_dr$q25 <- D_a$q25 *10000/ pred_agg_region_ptime[, p_time_var]
+  D_a_dr$q75 <- D_a$q75 *10000/ pred_agg_region_ptime[, p_time_var]
   D_a_dr$q3 <- D_a$q3 *10000/ pred_agg_region_ptime[, p_time_var]
 
   # Merge toll and dr
   D_a <- merge(D_a, D_a_dr, by=c(agg_level), all.x=TRUE, all.y=TRUE)
   colnames(D_a) <- c(agg_level, paste('toll_mean', annot, sep=""),
                      paste('toll_low', annot, sep=""),
+                     paste('toll_25', annot, sep=""),
+                     paste('toll_75', annot, sep=""),
                      paste('toll_up', annot, sep=""),
                      paste('dr_mean', annot, sep=""),
                      paste('dr_low', annot, sep=""),
+                     paste('dr_25', annot, sep=""),
+                     paste('dr_75', annot, sep=""),
                      paste('dr_up', annot, sep="")
   )
   return(D_a)

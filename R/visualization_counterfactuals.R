@@ -155,10 +155,14 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
       ggplot2::aes(x = date, y = df_plot[,paste('dr_mean', annot, sep='')],
           ymin = df_plot[,paste('dr_low', annot, sep='')],
           ymax = df_plot[,paste('dr_up', annot, sep='')])) +
-    ggplot2::geom_ribbon(
-      alpha = 0.2, fill = "grey25") +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin=df_plot[,paste('dr_low', annot, sep='')],
+                                      ymax=df_plot[,paste('dr_up', annot, sep='')]),
+      alpha = 0.2, fill = "#4477AA") +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin=df_plot[,paste('dr_25', annot, sep='')],
+                    ymax=df_plot[,paste('dr_75', annot, sep='')]), alpha=0.2,
+                fill = "#88CCEE")+
     ggplot2::geom_point(
-      alpha = 0.3, size = 3, colour = palette_cb[6]) +
+      alpha = 0.3, size = 3, colour = "#CC6677") +
     ggplot2::geom_smooth(
       ggplot2::aes(ymin = NULL, ymax = NULL),
       se = FALSE, span = 0.15, linewidth = 1, colour = palette_cb[7]) +
@@ -195,7 +199,9 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
       hjust = -0.073, vjust = 0.4, color = palette_cb[4]) +
     ggplot2::coord_cartesian(clip = "off") +
     ggplot2::theme_bw() +
-    ggplot2::theme(plot.margin = ggplot2::margin(0.5, 5, 0.5, 0.5, "cm")) +
+    ggplot2::theme(plot.margin = ggplot2::margin(0.5, 5, 0.5, 0.5, "cm"),
+                   axis.text=ggplot2::element_text(size=13),
+                   axis.title = ggplot2::element_text(size=16)) +
     ggplot2::scale_y_continuous(y_label) +
     ggplot2::scale_x_date("\n Year", date_breaks = "1 year",
                  date_labels = "%Y", expand = ggplot2::expansion(add = 12))
