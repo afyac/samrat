@@ -8,7 +8,8 @@
 #' @param f_family_f family function of the fit (e.g poisson)
 #' @export
 f_cv <- function(data_f, which_fold_f, fit_f, f_predict_f,
-                           f_family_f, k_folds_f = 10, verbose = TRUE) {
+                           f_family_f, k_folds_f = 10, verbose = TRUE,
+                 admin1_col='region') {
 
   # List of k folds
   folds_k <- unique(data_f$fold_k)
@@ -23,6 +24,7 @@ f_cv <- function(data_f, which_fold_f, fit_f, f_predict_f,
 
   # output 2 - by district-year, for plotting
   out2 <- c()
+  out4 <- c()
 
   # Identify response variable
   resp_var <- as.character(formula(fit_f))[2]
@@ -44,8 +46,11 @@ f_cv <- function(data_f, which_fold_f, fit_f, f_predict_f,
       df_hold <- subset(data_f, fold_k == out1[i, "fold_k"])
 
       # fit on all data but the fold
-      if (any(class(fit_f) %in% c("glm", "glm.nb", "zeroinfl", "glmmTMB") ) ) {
+      if (any(class(fit_f) %in% c("glm", "glm.nb", "zeroinfl") ) ) {
         cv_fit <- update(fit_f, data = df_train, formula. = fit_f$formula)
+      }
+      if((any(class(fit_f) %in% c("glmmTMB") ))){
+        cv_fit <- update(fit_f, data = df_train, formula. = fit_f$call$formula)
       }
       if (class(fit_f)[1] == "gam" ) {
         # figure out the weights variable(s)
@@ -73,21 +78,34 @@ f_cv <- function(data_f, which_fold_f, fit_f, f_predict_f,
         next}
 
       # predict on holdout fold
+      df_train$pred_train <- f_predict_f(fit_f = cv_fit, newdata_f = df_train)
       df_hold$pred <- f_predict_f(fit_f = cv_fit, newdata_f = df_hold)
 
       # collect predictive metrics
       out1[i, "obs"] <- sum(df_hold[, resp_var])
       out1[i, "pred"] <- sum(df_hold$pred)
+      out1[i, "obs_train"] <- sum(df_train[, resp_var])
+      out1[i, "pred_train"] <- sum(df_train$pred_train)
+      out1[i, "mse_train"] <- mean((df_train$pred_train - df_train[, resp_var])^2)
       out1[i, "mse"] <- mean((df_hold$pred - df_hold[, resp_var])^2)
       out1[i, "rmse"] <- sqrt(out1[i, "mse"])
+      out1[i, "rmse_train"] <- sqrt(out1[i, "mse_train"])
 
       # track results by region-year
       x <- aggregate(df_hold[, c(resp_var, "pred")],
-                     by = df_hold[, c("region", "year")], FUN = sum)
-      x <- x[order(x$region, x$year), ]
+                     by = df_hold[, c(admin1_col, "year")], FUN = sum)
+      x <- x[order(x[, admin1_col], x$year), ]
       out2 <- rbind(out2, x)
+
+      # track results by region-year - for training
+      x <- aggregate(df_train[, c(resp_var, "pred_train")],
+                     by = df_train[, c(admin1_col, "year")], FUN = sum)
+      colnames(x) <- c(admin1_col, 'year', paste(resp_var, '_train', sep=""), 'pred_train')
+      x <- x[order(x[, admin1_col], x$year), ]
+      out4 <- rbind(out4, x)
     }
   }
+  out2 <- merge(x = out2, y=out4, by = c('year', admin1_col), all.x=TRUE)
 
   #...................................
   ## Return output
@@ -95,20 +113,24 @@ f_cv <- function(data_f, which_fold_f, fit_f, f_predict_f,
   # Compute additional metrics
   out1$bias_abs <- out1$pred - out1$obs
   out1$bias_rel <- out1$bias_abs / out1$obs
+  out1$bias_abs_train <- out1$pred_train - out1$obs_train
+  out1$bias_rel_train <- out1$bias_abs_train / out1$obs_train
   out1 <- out1
 
   # Aggregate summary metrics across all folds
-  out3 <- c(Matrix::colMeans(out1[, c("mse", "rmse", "bias_rel")]), sd(out1$rmse) )
-  names(out3) <- c("mse", "rmse", "bias_rel", "sd_rmse")
+  out3 <- c(Matrix::colMeans(out1[, c("mse", "rmse", "bias_rel", "mse_train", "rmse_train", "bias_rel_train")]),
+            sd(out1$rmse) )
+  names(out3) <- c("mse", "rmse", "bias_rel","mse_train", "rmse_train", "bias_rel_train", "sd_rmse")
 
   # Final aggregation of output 2 by region-year
-  out2 <- aggregate(out2[, c(resp_var, "pred")],
-                    by = out2[, c("region", "year")], FUN = sum)
+  out2 <- aggregate(out2[, c(paste(resp_var, '_train', sep=""), "pred_train", resp_var,  "pred")],
+                    by = out2[, c(admin1_col, "year")], FUN = sum)
   colnames(out2)[colnames(out2) == resp_var] <- "obs"
+  colnames(out2)[colnames(out2) == paste(resp_var, '_train', sep="")] <- "obs_train"
 
   # Return
   out <- list(out1, out2, out3, class(fit_f)[1], f_family_f(fit_f))
-  names(out) <- c("cv_by_fold", "cv_by_region_year", "cv_metrics", "class",
+  names(out) <- c("cv_by_fold", "cv_by_admin1_year", "cv_metrics", "class",
                   "family")
   return(out)
 }

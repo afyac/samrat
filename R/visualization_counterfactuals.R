@@ -12,7 +12,7 @@ f_clean_counterfactuals_table <- function(excess_res){
           na.rm = T
         )
       )  |>
-        dplyr::mutate(region = "Total")
+        dplyr::mutate(counties = "Total")
     ) |>
     dplyr::mutate(dplyr::across(starts_with('toll_'), round, -2)) |>
     dplyr::mutate(dplyr::across(starts_with('dr_'), round, 3)) |>
@@ -23,7 +23,7 @@ f_clean_counterfactuals_table <- function(excess_res){
       `Excess Death Rate (Overall)` = glue::glue("{dr_excess_period} ({dr_excess_period_low} to {dr_excess_period_up})"),
       `Excess Toll (Under 5)` = glue::glue("{toll_excess_period_u5} ({toll_excess_period_u5_low} to {toll_excess_period_u5_up})"),
       `Excess Death Rate (Under 5)` = glue::glue("{dr_excess_period_u5} ({dr_excess_period_u5_low} to {dr_excess_period_u5_up})"),
-      .by = "region"
+      .by = "counties"
     ) |>
     dplyr::mutate(
       dplyr::across(
@@ -41,7 +41,7 @@ f_clean_counterfactuals_table <- function(excess_res){
       )
     ) |>
     dplyr::ungroup() |>
-    dplyr::rename(Region = region)
+    dplyr::rename(Counties = counties)
   return(excess_est_full)
 }
 
@@ -59,7 +59,7 @@ f_clean_actual_table <- function(actual_res){
           na.rm = T
         )
       ) |>
-        dplyr::mutate(region = "Total")
+        dplyr::mutate(counties = "Total")
     ) |>
     dplyr::mutate(dplyr::across(starts_with('toll_'), round, -2)) |>
     dplyr::mutate(dplyr::across(starts_with('dr_'), round, 3)) |>
@@ -70,7 +70,7 @@ f_clean_actual_table <- function(actual_res){
       `Actual Death Rate (Overall)` = glue::glue("{dr_mean} ({dr_low} to {dr_up})"),
       `Actual Toll (Under 5)` = glue::glue("{toll_mean_u5} ({toll_low_u5} to {toll_up_u5})"),
       `Actual Death Rate (Under 5)` = glue::glue("{dr_mean_u5} ({dr_low_u5} to {dr_up_u5})"),
-      .by = "region"
+      .by = "counties"
     ) |>
     dplyr::mutate(
       dplyr::across(
@@ -88,7 +88,7 @@ f_clean_actual_table <- function(actual_res){
       )
     ) |>
     dplyr::ungroup() |>
-    dplyr::rename(Region = region)
+    dplyr::rename(Counties = counties)
   return(actual_est_full)
 }
 
@@ -118,8 +118,8 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
                                               cf_b_label = "2015-16 counterfactual",
                                               cf_a_label = "2020 counterfactual"){
 
-  palette_cb <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
-                  "#0072B2", "#D55E00", "#CC79A7")
+  palette_cb <- c("#999999", "#E69F00", "#E0EEEE", "#009E73", "#F0E442",
+                  "#104E9B", "#D55E00", "#CC79A7")
 
   if (resp_var %in% c("cdr", "n_died")) {resp_var <- "cdr"}
   if (resp_var %in% c("cdr_u5", "n_died_u5")) {resp_var <- "cdr_u5"}
@@ -157,12 +157,12 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
           ymax = df_plot[,paste('dr_up', annot, sep='')])) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin=df_plot[,paste('dr_low', annot, sep='')],
                                       ymax=df_plot[,paste('dr_up', annot, sep='')]),
-      alpha = 0.2, fill = "#4477AA") +
+      alpha = 0.1, fill = "#0072B2") +
     ggplot2::geom_ribbon(ggplot2::aes(ymin=df_plot[,paste('dr_25', annot, sep='')],
-                    ymax=df_plot[,paste('dr_75', annot, sep='')]), alpha=0.2,
-                fill = "#88CCEE")+
+                    ymax=df_plot[,paste('dr_75', annot, sep='')]), alpha=0.1,
+                fill = "#0072B2")+
     ggplot2::geom_point(
-      alpha = 0.3, size = 3, colour = "#CC6677") +
+      alpha = 0.3, size = 2, colour = "#D55E00") +
     ggplot2::geom_smooth(
       ggplot2::aes(ymin = NULL, ymax = NULL),
       se = FALSE, span = 0.15, linewidth = 1, colour = palette_cb[7]) +
@@ -180,7 +180,7 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
       color = palette_cb[6], linetype = "dotted", size = 0.7) +
     ggplot2::geom_text(
       ggplot2::aes(x = max(date), y = countfact_mean_b, label = cf_a_label),
-      hjust = -0.075, vjust = 0.4, color = palette_cb[6]) +
+      hjust = -0.075, vjust = 1.4, color = palette_cb[6], size=3.5) +
     # Thick line four counterfactual period b
     ggplot2::geom_segment(
       ggplot2::aes(x = as.Date(start_date_cf_a), xend = as.Date(end_date_cf_a),
@@ -196,18 +196,19 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
     ggplot2::geom_text(
       ggplot2::aes(x = max(date), y = countfact_mean_a,
           label = cf_b_label),
-      hjust = -0.073, vjust = 0.4, color = palette_cb[4]) +
+      hjust = -0.073, vjust = 0.4, color = palette_cb[4], size=3.5) +
     ggplot2::coord_cartesian(clip = "off") +
     ggplot2::theme_bw() +
     ggplot2::theme(plot.margin = ggplot2::margin(0.5, 5, 0.5, 0.5, "cm"),
-                   axis.text=ggplot2::element_text(size=13),
-                   axis.title = ggplot2::element_text(size=16)) +
-    ggplot2::scale_y_continuous(y_label) +
+                   axis.text.x = ggplot2::element_text(size=10, angle = 45, vjust=1, hjust=1),
+                   axis.text.y = ggplot2::element_text(size=10),
+                   axis.title.x = ggplot2::element_blank(),
+                   axis.title = ggplot2::element_text(size=12),
+                   legend.text = ggplot2::element_text(size=8)) +
+    ggplot2::scale_y_continuous(y_label, expand = c(0, 0), limits = c(0, 1.5)) +
     ggplot2::scale_x_date("\n Year", date_breaks = "1 year",
                  date_labels = "%Y", expand = ggplot2::expansion(add = 12))
 
 
-  ggplot2::ggsave(paste(path_output, 'som_',
-                        name_output, '.png', sep=""),
-                  dpi = "print", width = 25, height = 25, units = "cm")
+  return(plot)
 }

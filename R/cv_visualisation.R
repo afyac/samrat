@@ -17,7 +17,7 @@ f_cv_plot <- function(cv_data, admin1_col, plot_type = "scatter",
       result <- if ("scatter" %in% plot_type) {
         # If scatter plot ------------------------------------------------------
 
-        cv_data$cv_by_region_year |>
+        cv_data$cv_by_admin1_year |>
           ggplot2::ggplot(ggplot2::aes(x = obs, y = pred)) +
           ggplot2::geom_point(ggplot2::aes(
             size = 2, alpha = 0.1,
@@ -42,7 +42,7 @@ f_cv_plot <- function(cv_data, admin1_col, plot_type = "scatter",
       } else if ("dumbbell"  %in% plot_type) {
         # If dumbbell plot -----------------------------------------------------
 
-        resul <- cv_data$cv_by_region_year |>
+        resul <- cv_data$cv_by_admin1_year |>
           dplyr::mutate(bias_abs = pred - obs) |>
           ggplot2::ggplot(ggplot2::aes(
             x = 0, xend = bias_abs,
@@ -78,17 +78,11 @@ f_cv_plot <- function(cv_data, admin1_col, plot_type = "scatter",
       if (!is.null(result) && save_plot) {
         class_f <- cv_data$class
         outcome <- cv_data$response
-        file_name <- paste(dir_output_f, "/som_out_cv_perf_u5_",
+        file_name <- paste(dir_output_f, "/som_out_cv_perf_",
                            plot_type, "_", class_f, "_", outcome, ".png", sep = "")
         ggplot2::ggsave(file_name, plot = result,
                         dpi = "print", units = "cm", height = 21, width = 24)
       }
-
-      # Return results
-      if ("scatter" %in% plot_type) {
-        return(plotly::ggplotly(result, tooltip = "text"))
-      }
-      return(result)
     })
   })
 }

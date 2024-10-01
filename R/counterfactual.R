@@ -31,8 +31,8 @@ f_counterfactuals <- function(boostrapping_results, resp_var,
     dplyr::group_by(dplyr::across(dplyr::all_of(c(admin2_col)))) |>
     dplyr::filter(date >= start_date_per_1 & date <= end_date_per_1) |>
     dplyr::mutate(median_c = mean(exp(pred))) |>
-    dplyr::select(median_c, district) |>
-    dplyr::distinct(district, .keep_all = TRUE) |>
+    dplyr::select(median_c, counties) |>
+    dplyr::distinct(counties, .keep_all = TRUE) |>
     dplyr::ungroup()
 
   boostrapping_results <- merge(boostrapping_results, median_c,

@@ -14,7 +14,7 @@
 f_feature_selection <- function(list_pred_to_try, pred_value,
                                 path, training_data, which_fold_f,
                                 admin2_col = NULL, p_time_var = NULL,
-                                model = 'glmmTMB'){
+                                model = 'glmmTMB', admin1_col='region'){
   metrics <- c()
   list_preds <- c()
   for(nb_pred in seq(from = length(list_pred_to_try), to = 3)){
@@ -41,12 +41,12 @@ f_feature_selection <- function(list_pred_to_try, pred_value,
                              weights = qualityScore, family = "poisson")
       }else if(model == 'glm'){
         glm_fit <- glm(formula = fit_formula, data = training_data,
-                       weights = qualityScore, family = "poisson")
+                       weights = qualityScore, family = "poisson",)
       }
       res <- f_cv(data_f = training_data, which_fold_f = which_fold_f,
                   k_folds_f = 10, fit_f = glm_fit,
                   f_family_f = f_family,
-                  f_predict_f = f_predict, verbose = TRUE)
+                  f_predict_f = f_predict, verbose = TRUE, admin1_col =admin1_col)
 
       metrics <- rbind(metrics, res$cv_metrics)
       list_preds <- rbind(list_preds, paste(c(select_preds), collapse=", "))

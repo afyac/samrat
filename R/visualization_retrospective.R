@@ -105,7 +105,6 @@ f_cdr_map <- function(data, resp_var,
           barwidth = 11, title.position = "top",
           title.vjust = 1, title.hjust = 0.37
         ),
-        name = leg_label,
         midpoint = median(data[[dr]])
       ) +
       ggplot2::theme(
@@ -140,7 +139,7 @@ f_cdr_map <- function(data, resp_var,
 
     # Add the fill legend into the color plot at a specific location
     p_color <- p_color + ggplot2::annotation_custom(
-      grob = g$grobs[[which(g$layout$name == "guide-box")]],
+      grob = g$grobs[[which(g$layout$name == "guide-box-right")]],
       xmin = 1, xmax = 84.75, ymin = 0.935, ymax = 24.5
     )
 

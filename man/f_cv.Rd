@@ -11,7 +11,8 @@ f_cv(
   f_predict_f,
   f_family_f,
   k_folds_f = 10,
-  verbose = TRUE
+  verbose = TRUE,
+  admin1_col = "region"
 )
 }
 \arguments{

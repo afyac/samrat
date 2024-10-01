@@ -41,10 +41,10 @@ f_pred_glm <- function(training_data, predicting_data,
   #Firt pred and standard error
   pred <- predict(glm_fit,
                   predicting_data[, c(p_time_var,   pred_var, admin1_col,
-                                      admin2_col, 'qualityScore')])
+                                      admin2_col, 'qualityScore')], allow.new.levels = TRUE)
   se <- predict(glm_fit,
                 predicting_data[, c(p_time_var,  pred_var, admin1_col,
-                                    admin2_col, 'qualityScore')], se.fit=TRUE)$se.fit
+                                    admin2_col, 'qualityScore')], se.fit=TRUE, allow.new.levels = TRUE)$se.fit
 
   #Save pred and se
   predicting_data <- as.data.frame(predicting_data)
@@ -124,7 +124,7 @@ f_generate_final_results <- function(boostrapping_results, agg_level, nb_boostra
   ## Calculate mean, q1 and q3 of the boostrapping on the actual matrix results
   D_a <- data.frame(t(apply(D_a[, c(paste('X', seq(1:nb_boostrap), sep=""))], 1,
                             FUN = function(x) {return(c(mean(x),
-                                                        quantile(x, c(0.025, 0.25, 0.75, 0.975))))} )))
+                                                        quantile(x, c(0.025, 0.20, 0.80, 0.975))))} )))
   colnames(D_a) <-c('mean', 'q1', 'q25', 'q75', 'q3')
   D_a[, agg_level] <- pred_agg_region_ptime[, agg_level]
 

@@ -12,7 +12,8 @@ f_feature_selection(
   which_fold_f,
   admin2_col = NULL,
   p_time_var = NULL,
-  model = "glmmTMB"
+  model = "glmmTMB",
+  admin1_col = "region"
 )
 }
 \arguments{
