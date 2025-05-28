@@ -115,7 +115,7 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
                                               end_date_cf_a = "2016-06-01",
                                               start_date_cf_b = "2020-01-01",
                                               end_date_cf_b = "2021-06-01",
-                                              cf_b_label = "2015-16 counterfactual",
+                                              cf_b_label = "2015 counterfactual",
                                               cf_a_label = "2020 counterfactual"){
 
   palette_cb <- c("#999999", "#E69F00", "#E0EEEE", "#009E73", "#F0E442",
@@ -171,41 +171,41 @@ f_plot_country_plot_with_boostrap <- function(boostrapping_results,
       ggplot2::aes(x = as.Date(start_date_cf_b), xend = as.Date(end_date_cf_b),
           y = countfact_mean_b,
           yend = countfact_mean_b),
-      color = palette_cb[6], size = 0.7) +
+      color = palette_cb[6], size = 0.9) +
     # Dotted line four counterfactual period a
     ggplot2::geom_segment(
       ggplot2::aes(x = as.Date(start_date_cf_b), xend = max(date),
           y = countfact_mean_b,
           yend = countfact_mean_b),
-      color = palette_cb[6], linetype = "dotted", size = 0.7) +
+      color = palette_cb[6], linetype = "dotted", size = 0.9) +
     ggplot2::geom_text(
       ggplot2::aes(x = max(date), y = countfact_mean_b, label = cf_a_label),
-      hjust = -0.075, vjust = 1.4, color = palette_cb[6], size=3.5) +
+      hjust = -0.075, vjust = 1.4, color = palette_cb[6], size=5) +
     # Thick line four counterfactual period b
     ggplot2::geom_segment(
       ggplot2::aes(x = as.Date(start_date_cf_a), xend = as.Date(end_date_cf_a),
           y = countfact_mean_a, yend = countfact_mean_a),
-      alpha = 1, color = palette_cb[4], size = 0.7) +
+      alpha = 1, color = palette_cb[4], size = 0.9) +
     # Dotted line four counterfactual period b
     ggplot2::geom_segment(
       ggplot2::aes(x = as.Date(start_date_cf_a), xend = max(date),
           y = countfact_mean_a,
           yend = countfact_mean_a),
-      color = palette_cb[4], linetype = "dotted", size = 0.7) +
+      color = palette_cb[4], linetype = "dotted", size = 0.9) +
     # Title for counterfactual period a
     ggplot2::geom_text(
       ggplot2::aes(x = max(date), y = countfact_mean_a,
           label = cf_b_label),
-      hjust = -0.073, vjust = 0.4, color = palette_cb[4], size=3.5) +
+      hjust = -0.073, vjust = 0.4, color = palette_cb[4], size=5) +
     ggplot2::coord_cartesian(clip = "off") +
     ggplot2::theme_bw() +
     ggplot2::theme(plot.margin = ggplot2::margin(0.5, 5, 0.5, 0.5, "cm"),
-                   axis.text.x = ggplot2::element_text(size=10, angle = 45, vjust=1, hjust=1),
-                   axis.text.y = ggplot2::element_text(size=10),
+                   axis.text.x = ggplot2::element_text(size=20, angle = 45, vjust=1, hjust=1),
+                   axis.text.y = ggplot2::element_text(size=20),
                    axis.title.x = ggplot2::element_blank(),
-                   axis.title = ggplot2::element_text(size=12),
-                   legend.text = ggplot2::element_text(size=8)) +
-    ggplot2::scale_y_continuous(y_label, expand = c(0, 0), limits = c(0, 1.5)) +
+                   axis.title = ggplot2::element_text(size=20),
+                   legend.text = ggplot2::element_text(size=20)) +
+    ggplot2::scale_y_continuous(y_label, expand = c(0, 0), limits = c(min(df_plot[,paste('dr_low', annot, sep='')]), max(df_plot[,paste('dr_up', annot, sep='')]))) +
     ggplot2::scale_x_date("\n Year", date_breaks = "1 year",
                  date_labels = "%Y", expand = ggplot2::expansion(add = 12))
 
