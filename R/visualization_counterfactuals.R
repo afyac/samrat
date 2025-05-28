@@ -12,7 +12,7 @@ f_clean_counterfactuals_table <- function(excess_res){
           na.rm = T
         )
       )  |>
-        dplyr::mutate(counties = "Total")
+        dplyr::mutate(district = "Total")
     ) |>
     dplyr::mutate(dplyr::across(starts_with('toll_'), round, -2)) |>
     dplyr::mutate(dplyr::across(starts_with('dr_'), round, 3)) |>
@@ -23,7 +23,7 @@ f_clean_counterfactuals_table <- function(excess_res){
       `Excess Death Rate (Overall)` = glue::glue("{dr_excess_period} ({dr_excess_period_low} to {dr_excess_period_up})"),
       `Excess Toll (Under 5)` = glue::glue("{toll_excess_period_u5} ({toll_excess_period_u5_low} to {toll_excess_period_u5_up})"),
       `Excess Death Rate (Under 5)` = glue::glue("{dr_excess_period_u5} ({dr_excess_period_u5_low} to {dr_excess_period_u5_up})"),
-      .by = "counties"
+      .by = "district"
     ) |>
     dplyr::mutate(
       dplyr::across(
@@ -41,7 +41,7 @@ f_clean_counterfactuals_table <- function(excess_res){
       )
     ) |>
     dplyr::ungroup() |>
-    dplyr::rename(Counties = counties)
+    dplyr::rename(district = district)
   return(excess_est_full)
 }
 
@@ -59,7 +59,7 @@ f_clean_actual_table <- function(actual_res){
           na.rm = T
         )
       ) |>
-        dplyr::mutate(counties = "Total")
+        dplyr::mutate(district = "Total")
     ) |>
     dplyr::mutate(dplyr::across(starts_with('toll_'), round, -2)) |>
     dplyr::mutate(dplyr::across(starts_with('dr_'), round, 3)) |>
@@ -70,7 +70,7 @@ f_clean_actual_table <- function(actual_res){
       `Actual Death Rate (Overall)` = glue::glue("{dr_mean} ({dr_low} to {dr_up})"),
       `Actual Toll (Under 5)` = glue::glue("{toll_mean_u5} ({toll_low_u5} to {toll_up_u5})"),
       `Actual Death Rate (Under 5)` = glue::glue("{dr_mean_u5} ({dr_low_u5} to {dr_up_u5})"),
-      .by = "counties"
+      .by = "district"
     ) |>
     dplyr::mutate(
       dplyr::across(
@@ -88,7 +88,7 @@ f_clean_actual_table <- function(actual_res){
       )
     ) |>
     dplyr::ungroup() |>
-    dplyr::rename(Counties = counties)
+    dplyr::rename(district = district)
   return(actual_est_full)
 }
 
